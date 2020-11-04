@@ -1,0 +1,465 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{atlas-preamble}[2020/11/04 v1.0 Niklas Bogensperger's custom preamble]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pre-options section
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% if-switches for options
+\newif\if@encoding
+\newif\if@typesetting
+\newif\if@math
+\newif\if@theorems
+\newif\if@physics
+\newif\if@graphics
+\newif\if@tables
+\newif\if@captionsfootnotes
+\newif\if@lists
+\newif\if@columns
+\newif\if@toc
+\newif\if@spacings
+\newif\if@code
+\newif\if@headings
+\newif\if@hyperref
+
+% if-switches for other uses
+\newif\if@classuseschapter
+\@ifclassloaded{book}{\@classuseschaptertrue}{}
+\@ifclassloaded{report}{\@classuseschaptertrue}{}
+\@ifclassloaded{memoir}{\@classuseschaptertrue}{}
+\newif\if@languagegerman
+\iflanguage{ngerman}{\@languagegermantrue}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Options section
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% options
+\DeclareOption{encoding}{\@encodingtrue}
+\DeclareOption{typesetting}{\@typesettingtrue}
+\DeclareOption{math}{\@mathtrue}
+\DeclareOption{theorems}{\@theoremstrue}
+\DeclareOption{physics}{\@physicstrue}
+\DeclareOption{graphics}{\@graphicstrue}
+\DeclareOption{tables}{\@tablestrue}
+\DeclareOption{captionsfootnotes}{\@captionsfootnotestrue}
+\DeclareOption{lists}{\@liststrue}
+\DeclareOption{columns}{\@columnstrue}
+\DeclareOption{toc}{\@toctrue}
+\DeclareOption{spacings}{\@spacingstrue}
+\DeclareOption{code}{\@codetrue}
+\DeclareOption{headings}{\@headingstrue}
+\DeclareOption{hyperref}{\@hyperreftrue}
+
+% nano options
+\DeclareOption{nano}{%
+	\@encodingtrue
+	\@mathtrue
+	\@graphicstrue
+	\@tablestrue
+}
+
+% micro options
+\DeclareOption{micro}{%
+	\@encodingtrue
+	\@mathtrue
+	\@graphicstrue
+	\@tablestrue
+	\@liststrue
+	\@columnstrue
+	\@spacingstrue
+}
+
+% milli options
+\DeclareOption{milli}{%
+	\@encodingtrue
+	\@typesettingtrue
+	\@mathtrue
+	\@graphicstrue
+	\@tablestrue
+	\@captionsfootnotestrue
+	\@liststrue
+	\@columnstrue
+	\@spacingstrue
+	\@hyperreftrue
+}
+
+% kilo options
+\DeclareOption{kilo}{%
+	\@encodingtrue
+	\@typesettingtrue
+	\@mathtrue
+	\@theoremstrue
+	\@physicstrue
+	\@graphicstrue
+	\@tablestrue
+	\@captionsfootnotestrue
+	\@liststrue
+	\@columnstrue
+	\@spacingstrue
+	\@hyperreftrue
+}
+
+% mega options (default; everything except toc and headings)
+\DeclareOption{mega}{%
+	\@encodingtrue
+	\@typesettingtrue
+	\@mathtrue
+	\@theoremstrue
+	\@physicstrue
+	\@graphicstrue
+	\@tablestrue
+	\@captionsfootnotestrue
+	\@liststrue
+	\@columnstrue
+	\@spacingstrue
+	\@codetrue
+	\@hyperreftrue
+}
+
+% giga options (all; caution - toc and spacing options are known to conflict, see comments in the respective sections)
+\DeclareOption{giga}{%
+	\@encodingtrue
+	\@typesettingtrue
+	\@mathtrue
+	\@theoremstrue
+	\@physicstrue
+	\@graphicstrue
+	\@tablestrue
+	\@captionsfootnotestrue
+	\@liststrue
+	\@columnstrue
+	\@toctrue
+	\@spacingstrue
+	\@codetrue
+	\@headingstrue
+	\@hyperreftrue
+}
+
+% fallback for unknown options
+\DeclareOption*{\PackageWarning{atlas-preamble}{Unknown option '\CurrentOption'}}
+
+% Process given options
+\ProcessOptions\relax
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Post-options section -- activation of enabled options
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\if@encoding
+	\RequirePackage{lmodern}
+	% latin modern font
+	% -> Caveats: should be loaded before package 'fontenc'
+	\RequirePackage[T1]{fontenc}
+	% encoding of rendered output
+	\RequirePackage[utf8]{inputenc}
+	% encoding of source code input
+	% -> Caveats: loading it after package 'fontenc' is recommended when using option 'utf-8'
+\fi
+
+
+\if@typesetting
+	% see https://texdoc.net/texmf-dist/doc/latex/l2tabu-english/l2tabuen.pdf for why these values are chosen
+	\tolerance 1414
+	\hbadness 1414
+	\emergencystretch 1.5em
+	\hfuzz 0.3pt
+	\widowpenalty=10000
+	\vfuzz \hfuzz
+	\raggedbottom
+\fi
+
+
+\if@math
+	\RequirePackage{amsmath}
+	% necessary math features
+	\RequirePackage{amssymb}
+	% necessary math symbols
+	\RequirePackage{bm}
+	% better bold math symbols
+	% -> Caveats: needs to be loaded after package 'amsmath' to avoid conflicts
+	\RequirePackage{mathtools}
+	% some extensions and fixes to amsmath
+	% -> Caveats: loads package 'amsmath' if not already imported
+
+	% -> Options (several packages): useful math macros in auxiliary features section below
+\fi
+
+
+\if@theorems
+	\RequirePackage{amsthm}
+	% theorem environment
+
+	% -> Options (amsthm): theorem style setup in auxiliary features section below
+\fi
+
+
+\if@physics
+	\RequirePackage{physics}
+	% several useful commands for physics
+	\RequirePackage{siunitx}
+	% worry-free SI units rendering
+
+	\sisetup{separate-uncertainty=true}
+	% -> Options (siunitx): separate all uncertainties from their values
+\fi
+
+
+\if@graphics
+	\RequirePackage{graphicx}
+	% graphics embedding
+	\RequirePackage{wrapfig}
+	% wrap text around figures
+\fi
+
+
+\if@tables
+	\RequirePackage{array}
+	% tables in their most essential form
+	\RequirePackage{booktabs}
+	% tables without horizontal lines for aesthetics
+	\RequirePackage{tabularx}
+	% tables which can automatically fit the page width
+	\RequirePackage{tabulary}
+	% tables which can automatically fit the page width and have variable width columns that can have different text alignments
+	\RequirePackage{xltabular}
+	% tables spanning more than one page (combines packages 'tabularx' and 'longtable')
+	\RequirePackage{makecell}
+	% several tweaks, including multiline cells
+\fi
+
+
+\if@captionsfootnotes
+	\RequirePackage{caption}
+	% essential tweaks for captions
+	\RequirePackage{floatrow}
+	% change caption positions and introduce the strict float option 'H'
+	\RequirePackage[bottom, flushmargin, hang]{footmisc}
+	% footnote customization
+	% -> Import-time options (footmisc): ensure footnotes stay at the very bottom and make ones that span multiple lines indented to the same (modified) level
+
+	\captionsetup{font=small, labelfont=bf, justification=raggedright, singlelinecheck=false}
+	% -> Options (caption): small and bold font, left alignment, do not center one-line captions
+	\floatsetup[table]{capposition=top}
+	% -> Options (floatrow): table caption on top
+
+	\renewcommand{\footnoterule}{\kern -3pt \hrule width \textwidth height 1pt \kern 2pt}
+	% -> Options: footnoterule as wide as textwidth
+\fi
+
+
+\if@lists
+	\RequirePackage{enumitem}
+	% easily change properties of list environments
+
+	\setlist{itemsep=0pt, labelsep=7pt, labelwidth=7pt, leftmargin=14pt, parsep=0pt, topsep=4pt}
+	% -> Options (enumitem): spacings of list environments
+\fi
+
+
+\if@columns
+	\RequirePackage{multicol}
+	% multiple columns environment
+\fi
+
+
+\if@toc
+	\RequirePackage[nottoc, numbib]{tocbibind}
+	% include bibliography and other (usually omitted) indexes in the toc
+	% -> Import-time options (tocbibind): include numbered bibliography in toc
+	\RequirePackage[titles]{tocloft}
+	% change style of the toc
+	% -> Caveats: conflicts with package 'parskip'; loading it after 'parskip' causes the package to abort altogether, loading it before 'parskip' causes 'parskip' to throw a non-critical warning; see also https://tex.stackexchange.com/q/395779; results may vary depending on the typesetting engine
+
+	\setcounter{tocdepth}{2}
+	% -> Options: set depth of the toc to subsection level
+	\if@classuseschapter
+		\cftsetindents{chapter}{0em}{2.5em}
+		% -> Options (tocloft): indent of chapter level in toc (if highest level in documentclass is 'chapter')
+		\cftsetindents{section}{2.5em}{3em}
+		% -> Options (tocloft): indent of section level in toc (if highest level in documentclass is 'chapter')
+		\cftsetindents{subsection}{5.5em}{3.5em}
+		% -> Options (tocloft): indent of subsection level in toc (if highest level in documentclass is 'chapter')
+	\else
+		\cftsetindents{section}{0em}{2.5em}
+		% -> Options (tocloft): indent of section level in toc (if highest level in documentclass is 'section')
+		\cftsetindents{subsection}{2.5em}{3em}
+		% -> Options (tocloft): indent of subsection level in toc (if highest level in documentclass is 'section')
+	\fi
+\fi
+
+
+\if@spacings
+	\RequirePackage{parskip}
+	% better handling of spacing for paragraphs
+	% -> Caveats: conflicts with package 'tocloft'; loading it before 'tocloft' causes 'tocloft' to abort altogether, loading it after 'tocloft' causes it to throw a non-critical warning; see also https://tex.stackexchange.com/q/395779; results may vary depending on the typesetting engine
+
+	\setlength{\parindent}{2em}
+	% -> Options (parskip (associated)): larger indent of first line in paragraphs
+	\setlength{\parskip}{0.5em}
+	% -> Options (parskip (associated)): space between paragraphs
+\fi
+
+
+\if@code
+	\@ifpackageloaded{caption}{}{\RequirePackage{caption}}
+	% see comment for package 'minted' below
+	\@ifpackageloaded{floatrow}{}{\RequirePackage{floatrow}}
+	% see comment for package 'minted' below
+	\RequirePackage[newfloat, outputdir=.texpadtmp]{minted}
+	% formatting and highlighting for code
+	% -> Caveats: package 'floatrow' needs to be loaded before to avoid conflicts when using import-time option 'newfloat'; package 'caption' needs to be loaded before to successfully parse the \newenvironment command
+	% -> Import-time options (minted): 'outputdir' is used to hide intermediate files in Texpad's hidden folder for those files
+
+	\newenvironment{code}{\captionsetup{type=listing}}{}
+	% -> Options: create new environment 'code'
+	\SetupFloatingEnvironment{listing}{within=section, name=Code}
+	% -> Options: customize captions for new environment 'code' ('capposition=top' is not needed, as captions for listings are on top by default)
+\fi
+
+
+\if@headings
+	\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}
+	% see comment for package 'titlesec' below
+	\RequirePackage{titlesec}
+	% custom styles for headings
+	% -> Caveats: package 'xcolor' needs to be loaded before to successfully parse the \titleformat commands below
+
+	\if@classuseschapter
+		\titleformat{\chapter}[hang]{\LARGE\bfseries}{\textcolor{white!75!black}{\hspace{-17mm}\makebox[11mm][r]{\thechapter}\hspace{6mm}}}{0pt}{\LARGE\bfseries}
+		% -> Options (titlesec): style of chapter headings (if level 'chapter' exists in documentclass)
+	\fi
+	\titleformat{\section}[hang]{\Large\bfseries}{\textcolor{white!75!black}{\hspace{-17mm}\makebox[11mm][r]{\thesection}\hspace{6mm}}}{0pt}{\Large\bfseries}
+	% -> Options (titlesec): style of section headings
+	\titleformat{\subsection}[hang]{\large\bfseries}{\textcolor{white!75!black}{\hspace{-17mm}\makebox[11mm][r]{\thesubsection}\hspace{6mm}}}{0pt}{\large\bfseries}
+	% -> Options (titlesec): style of subsection headings
+\fi
+
+
+\if@hyperref
+	\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}
+	% see comment for package 'hyperref' below
+	\RequirePackage[hyperfootnotes=false, hypertexnames=false, pdfusetitle]{hyperref}
+	% -> Caveats: package 'hyperref' should almost always be imported last; package 'xcolor' needs to be loaded before to successfully parse the \hypersetup command below
+	% -> Import-time options (hyperref): prohibit link creation in footnotes (would otherwise conflict with package 'footmisc'), enable the more robust but less guessable way to count links, and write correct author and title metadata to pdf file
+	
+	\hypersetup{colorlinks, allcolors={blue!65!black}}
+	% -> Options (hyperref): setup colors of links
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Post-options section -- auxiliary features of some enabled options
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\if@math
+	%% -> Options (several packages): useful math macros
+
+	% "Blackboard bold"-style characters for number sets
+	\newcommand{\C}{\mathbb{C}}
+	\newcommand{\R}{\mathbb{R}}
+	\newcommand{\Q}{\mathbb{Q}}
+	\newcommand{\Z}{\mathbb{Z}}
+	\newcommand{\N}{\mathbb{N}}
+	\newcommand{\K}{\mathbb{K}}
+
+	% "Blackboard bold"-style character for the identity
+	\newcommand{\1}{\mathbb{1}}
+
+	% Scaling delimiters
+	\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
+
+	% Use "alternative" greek letters by default and redefine the old ones
+	\let\oldepsilon\epsilon
+	\renewcommand{\epsilon}{\ensuremath{\varepsilon}}
+	\let\oldrho\rho
+	\renewcommand{\rho}{\ensuremath{\varrho}}
+	\let\oldphi\phi
+	\renewcommand{\phi}{\ensuremath{\varphi}}
+\fi
+
+
+\if@theorems
+	%% -> Options (amsthm): theorem style setup
+
+	% fix paragraph spacing if package 'parskip' is loaded; see https://tex.stackexchange.com/a/22130
+	\@ifpackageloaded{parskip}{\def\thm@space@setup{\thm@preskip=\parskip \thm@postskip=0pt}}{}
+
+	% localization
+	\newcommand{\localizationtheorem}{Theorem}
+	\newcommand{\localizationcorollary}{Corollary}
+	\newcommand{\localizationexample}{Example}
+	\newcommand{\localizationexercise}{Exercise}
+	\newcommand{\localizationremark}{Remark}
+	\newcommand{\localizationprerequisites}{Prerequisite(s):}
+	\newcommand{\localizationstatements}{Statement(s):}
+	\if@languagegerman
+		\renewcommand{\localizationtheorem}{Satz}
+		\renewcommand{\localizationcorollary}{Korollar}
+		\renewcommand{\localizationexample}{Beispiel}
+		\renewcommand{\localizationexercise}{Übung}
+		\renewcommand{\localizationremark}{Bemerkung}
+		\renewcommand{\localizationprerequisites}{Gegeben:}
+		\renewcommand{\localizationstatements}{Aussage(n):}
+	\fi
+
+	% predefined style 'plain' for statements (numbered and unnumbered variants)
+	\theoremstyle{plain}
+	\newtheorem{theorem}{\localizationtheorem}[section]
+	\newtheorem*{theorem*}{\localizationtheorem}
+	\newtheorem{proposition}{Proposition}[section]
+	\newtheorem*{proposition*}{Proposition}
+	\newtheorem{lemma}{Lemma}[section]
+	\newtheorem*{lemma*}{Lemma}
+	\newtheorem{corollary}{\localizationcorollary}[section]
+	\newtheorem*{corollary*}{\localizationcorollary}
+
+	% predefined style 'definition' for definitions (numbered and unnumbered variants) and other important items (only unnumbered variant)
+	\theoremstyle{definition}
+	\newtheorem{definition}{Definition}[section]
+	\newtheorem*{definition*}{Definition}
+	\newtheorem*{example}{\localizationexample}
+	\newtheorem*{exercise}{\localizationexercise}
+
+	% custom style 'newremark' for less important items (only unnumbered variants)
+	\newtheoremstyle{newremark}{}{}{\slshape}{}{\scshape}{.}{0.4em}{}
+	\theoremstyle{newremark}
+	\newtheorem*{remark}{\localizationremark}
+	\newtheorem*{notation}{Notation}
+
+	% custom style 'summtheorem' for summaries of statements (only unnumbered variant)
+	\newtheoremstyle{summtheorem}{}{}{\itshape}{}{\bfseries}{.}{\newline}{}
+	\theoremstyle{summtheorem}
+	% commands for use within summaries of statements (for division into prerequisites and statements)
+	\newcommand{\preq}[1]{%
+		\par
+		{\normalfont\scshape\localizationprerequisites} #1%
+	}
+	\newcommand{\state}[1]{%
+		\par
+		{\normalfont\scshape\localizationstatements} #1%
+	}
+	% creation of 'summarythm*' environment that takes a theorem name as mandatory argument (achieved through a workaround which involves invoking a \newtheorem with the new empty command \thistheoremname and re-initializing \thistheoremname with the mandatory argument every time the environment is started)
+	% within this environment \parindent is always set to 0
+	\newcommand{\thistheoremname}{}
+	\newtheorem*{genericthm*}{\thistheoremname}
+	\newenvironment{summarythm*}[1]
+	    {\renewcommand{\thistheoremname}{#1}%
+	     \setlength{\parindent}{0em}%
+	     \begin{genericthm*}}
+	    {\end{genericthm*}}
+
+	% predefined style 'definition' for summaries of definitions (only unnumbered variant)
+	\theoremstyle{definition}
+	% creation of 'summarydef*' environment that takes a definition name as mandatory argument (for a description of the employed workaround, see 'summarythm*' above)
+	% within this environment \parindent is always set to 0
+	\newcommand{\thisdefinitionname}{}
+	\newtheorem*{genericdef*}{\thisdefinitionname}
+	\newenvironment{summarydef*}[1]
+	    {\renewcommand{\thisdefinitionname}{#1}%
+	     \setlength{\parindent}{0em}%
+	     \begin{genericdef*}}
+	    {\end{genericdef*}}
+\fi
+
+
+\endinput
