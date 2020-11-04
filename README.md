@@ -10,7 +10,7 @@ Then, include ```\usepackage[options]{atlas-preamble}``` in your LaTeX file's pr
 
 
 ## Options
-Any of the following options in the first column can be selected (even in combination with one of the six presets) using ```\usepackage[options and/or preset]{atlas-preamble}```. It should be noted that the **_mega_** preset option is recommended, and your results with the **_giga_** option may vary. This is due to the fact that packages loaded with the **toc** and **spacings** options necessarily conflict (this concerns the ```tocloft``` and ```parskip``` packages). Furthermore, the option **headings** defines my own preferred style of chapter/section/etc. headings, so it is also not in the recommended preset.
+Any of the following options in the first column can be selected (even in combination with one of the six presets) using ```\usepackage[options and/or preset]{atlas-preamble}```. It should be noted that the **_mega_** preset option is recommended, and your results with the **_giga_** option may vary. This is due to the fact that packages loaded with the **toc** and **spacings** options necessarily conflict (this concerns the ```tocloft``` and ```parskip``` packages). Furthermore, the option **headings** defines my own preferred style of chapter/section/subsection headings, so it is also not included in the recommended preset.
 
 Somewhat more detailed descriptions, explanations, and potential caveats can be found in the comments of the code itself.
 
