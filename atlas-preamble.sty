@@ -11,6 +11,7 @@
 \newif\if@math
 \newif\if@theorems
 \newif\if@physics
+\newif\if@compsc
 \newif\if@graphics
 \newif\if@tables
 \newif\if@captionsfootnotes
@@ -40,6 +41,7 @@
 \DeclareOption{math}{\@mathtrue}
 \DeclareOption{theorems}{\@theoremstrue}
 \DeclareOption{physics}{\@physicstrue}
+\DeclareOption{compsc}{\@compsctrue}
 \DeclareOption{graphics}{\@graphicstrue}
 \DeclareOption{tables}{\@tablestrue}
 \DeclareOption{captionsfootnotes}{\@captionsfootnotestrue}
@@ -107,6 +109,7 @@
 	\@mathtrue
 	\@theoremstrue
 	\@physicstrue
+	\@compsctrue
 	\@graphicstrue
 	\@tablestrue
 	\@captionsfootnotestrue
@@ -124,6 +127,7 @@
 	\@mathtrue
 	\@theoremstrue
 	\@physicstrue
+	\@compsctrue
 	\@graphicstrue
 	\@tablestrue
 	\@captionsfootnotestrue
@@ -245,6 +249,14 @@
 
 	\renewcommand{\footnoterule}{\kern -3pt \hrule width \textwidth height 1pt \kern 2pt}
 	% -> Options: footnoterule as wide as textwidth
+\fi
+
+
+\if@compsc
+	\RequirePackage{algorithm}
+	% for writing pseudo code
+	\RequirePackage{algpseudocode}
+	% enhancement of algorithm package. See example file, which uses algpseudocode syntax
 \fi
 
 
@@ -459,6 +471,19 @@
 	     \setlength{\parindent}{0em}%
 	     \begin{genericdef*}}
 	    {\end{genericdef*}}
+\fi
+
+
+\if@compsc
+	%% -> Options (several packages): useful cs macros
+
+	% for asymptotic notation
+	\renewcommand{\O}[1]{\order{#1}}
+	\renewcommand{\o}[1]{o\left(#1\right)}
+	\renewcommand{\t}[1]{\Theta\left(#1\right)}
+	\newcommand{\Om}[1]{\Omega\left(#1\right)}
+	\newcommand{\om}[1]{\omega\left(#1\right)}
+
 \fi
 
 

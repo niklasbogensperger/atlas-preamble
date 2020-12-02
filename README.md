@@ -28,6 +28,7 @@ Somewhat more detailed descriptions, explanations, and potential caveats can be 
 | **hyperref** |  |  | ⬤ | ⬤ | ⬤ | ⬤ |
 | **theorems** |  |  |  | ⬤ | ⬤ | ⬤ |
 | **physics** |  |  |  | ⬤ | ⬤ | ⬤ |
+| **compsc** |  |  |  |   | ⬤ | ⬤ |
 | **code** |  |  |  |  | ⬤ | ⬤ |
 | **toc** |  |  |  |  |  | ⬤ |
 | **headings** |  |  |  |  |  | ⬤ |
