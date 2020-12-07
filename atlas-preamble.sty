@@ -11,7 +11,7 @@
 \newif\if@math
 \newif\if@theorems
 \newif\if@physics
-\newif\if@compsc
+\newif\if@compsci
 \newif\if@graphics
 \newif\if@tables
 \newif\if@captionsfootnotes
@@ -41,7 +41,7 @@
 \DeclareOption{math}{\@mathtrue}
 \DeclareOption{theorems}{\@theoremstrue}
 \DeclareOption{physics}{\@physicstrue}
-\DeclareOption{compsc}{\@compsctrue}
+\DeclareOption{compsci}{\@compscitrue}
 \DeclareOption{graphics}{\@graphicstrue}
 \DeclareOption{tables}{\@tablestrue}
 \DeclareOption{captionsfootnotes}{\@captionsfootnotestrue}
@@ -109,7 +109,7 @@
 	\@mathtrue
 	\@theoremstrue
 	\@physicstrue
-	\@compsctrue
+	\@compscitrue
 	\@graphicstrue
 	\@tablestrue
 	\@captionsfootnotestrue
@@ -127,7 +127,7 @@
 	\@mathtrue
 	\@theoremstrue
 	\@physicstrue
-	\@compsctrue
+	\@compscitrue
 	\@graphicstrue
 	\@tablestrue
 	\@captionsfootnotestrue
@@ -252,11 +252,11 @@
 \fi
 
 
-\if@compsc
+\if@compsci
 	\RequirePackage{algorithm}
-	% for writing pseudo code
+	% for writing pseudocode
 	\RequirePackage{algpseudocode}
-	% enhancement of algorithm package. See example file, which uses algpseudocode syntax
+	% enhancement of package 'algorithm' (see examples folder for usage)
 \fi
 
 
@@ -366,7 +366,7 @@
 \if@math
 	%% -> Options (several packages): useful math macros
 
-	% "Blackboard bold"-style characters for number sets
+	% "blackboard bold"-style characters for common number sets
 	\newcommand{\C}{\mathbb{C}}
 	\newcommand{\R}{\mathbb{R}}
 	\newcommand{\Q}{\mathbb{Q}}
@@ -374,13 +374,13 @@
 	\newcommand{\N}{\mathbb{N}}
 	\newcommand{\K}{\mathbb{K}}
 
-	% "Blackboard bold"-style character for the identity
+	% "blackboard bold"-style character for the identity
 	\newcommand{\1}{\mathbb{1}}
 
-	% Scaling delimiters
+	% scaling delimiters
 	\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
 
-	% Use "alternative" greek letters by default and redefine the old ones
+	% use "alternative" greek letters by default and redefine the old ones
 	\let\oldepsilon\epsilon
 	\renewcommand{\epsilon}{\ensuremath{\varepsilon}}
 	\let\oldrho\rho
@@ -455,10 +455,10 @@
 	\newcommand{\thistheoremname}{}
 	\newtheorem*{genericthm*}{\thistheoremname}
 	\newenvironment{summarythm*}[1]
-	    {\renewcommand{\thistheoremname}{#1}%
-	     \setlength{\parindent}{0em}%
-	     \begin{genericthm*}}
-	    {\end{genericthm*}}
+		{\renewcommand{\thistheoremname}{#1}%
+		 \setlength{\parindent}{0em}%
+		 \begin{genericthm*}}
+		{\end{genericthm*}}
 
 	% predefined style 'definition' for summaries of definitions (only unnumbered variant)
 	\theoremstyle{definition}
@@ -467,23 +467,22 @@
 	\newcommand{\thisdefinitionname}{}
 	\newtheorem*{genericdef*}{\thisdefinitionname}
 	\newenvironment{summarydef*}[1]
-	    {\renewcommand{\thisdefinitionname}{#1}%
-	     \setlength{\parindent}{0em}%
-	     \begin{genericdef*}}
-	    {\end{genericdef*}}
+		{\renewcommand{\thisdefinitionname}{#1}%
+		 \setlength{\parindent}{0em}%
+		 \begin{genericdef*}}
+		{\end{genericdef*}}
 \fi
 
 
-\if@compsc
-	%% -> Options (several packages): useful cs macros
+\if@compsci
+	%% -> Options (several packages): useful compsci macros
 
-	% for asymptotic notation
-	\renewcommand{\O}[1]{\order{#1}}
+	% asymptotic notation shortcuts
+	\renewcommand{\O}[1]{\mathcal{O}{#1}}
 	\renewcommand{\o}[1]{o\left(#1\right)}
 	\renewcommand{\t}[1]{\Theta\left(#1\right)}
 	\newcommand{\Om}[1]{\Omega\left(#1\right)}
 	\newcommand{\om}[1]{\omega\left(#1\right)}
-
 \fi
 
 
