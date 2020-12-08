@@ -462,11 +462,12 @@
 	% see examples folder for usage
 
 	% asymptotic notation shortcuts
+	\let\slashedO\O
 	\renewcommand{\O}[1]{\ensuremath{\mathcal{O}\left(#1\right)}}
+	\let\slashedo\o
 	\renewcommand{\o}[1]{\ensuremath{o\left(#1\right)}}
 	% -> Caveats: \O and \o usually print a Danish/Norwegian "slashed-o"
-	\renewcommand{\t}[1]{\ensuremath{\Theta\left(#1\right)}}
-	% -> Caveats: \t usually prints a "\tie-after" accent
+	\newcommand{\T}[1]{\ensuremath{\Theta\left(#1\right)}}
 	\newcommand{\Om}[1]{\ensuremath{\Omega\left(#1\right)}}
 	\newcommand{\om}[1]{\ensuremath{\omega\left(#1\right)}}
 \fi
