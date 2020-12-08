@@ -1,27 +1,27 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{atlas-preamble}[2020/11/04 v1.0 Niklas Bogensperger's custom preamble]
+\ProvidesPackage{atlas-preamble}[2020/12/08 v1.1 Niklas Bogensperger's custom preamble]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Pre-options section
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % if-switches for options
-\newif\if@encoding
-\newif\if@typesetting
-\newif\if@math
-\newif\if@theorems
-\newif\if@physics
-\newif\if@compsci
-\newif\if@graphics
-\newif\if@tables
 \newif\if@captionsfootnotes
-\newif\if@lists
-\newif\if@columns
-\newif\if@toc
-\newif\if@spacings
 \newif\if@code
+\newif\if@columns
+\newif\if@compsci
+\newif\if@encoding
+\newif\if@graphics
 \newif\if@headings
 \newif\if@hyperref
+\newif\if@lists
+\newif\if@math
+\newif\if@physics
+\newif\if@spacings
+\newif\if@tables
+\newif\if@theorems
+\newif\if@toc
+\newif\if@typesetting
 
 % if-switches for other uses
 \newif\if@classuseschapter
@@ -36,108 +36,89 @@
 %% Options section
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % options
-\DeclareOption{encoding}{\@encodingtrue}
-\DeclareOption{typesetting}{\@typesettingtrue}
-\DeclareOption{math}{\@mathtrue}
-\DeclareOption{theorems}{\@theoremstrue}
-\DeclareOption{physics}{\@physicstrue}
-\DeclareOption{compsci}{\@compscitrue}
-\DeclareOption{graphics}{\@graphicstrue}
-\DeclareOption{tables}{\@tablestrue}
 \DeclareOption{captionsfootnotes}{\@captionsfootnotestrue}
-\DeclareOption{lists}{\@liststrue}
-\DeclareOption{columns}{\@columnstrue}
-\DeclareOption{toc}{\@toctrue}
-\DeclareOption{spacings}{\@spacingstrue}
 \DeclareOption{code}{\@codetrue}
+\DeclareOption{columns}{\@columnstrue}
+\DeclareOption{compsci}{\@compscitrue}
+\DeclareOption{encoding}{\@encodingtrue}
+\DeclareOption{graphics}{\@graphicstrue}
 \DeclareOption{headings}{\@headingstrue}
 \DeclareOption{hyperref}{\@hyperreftrue}
+\DeclareOption{lists}{\@liststrue}
+\DeclareOption{math}{\@mathtrue}
+\DeclareOption{physics}{\@physicstrue}
+\DeclareOption{spacings}{\@spacingstrue}
+\DeclareOption{tables}{\@tablestrue}
+\DeclareOption{theorems}{\@theoremstrue}
+\DeclareOption{toc}{\@toctrue}
+\DeclareOption{typesetting}{\@typesettingtrue}
 
-% nano options
-\DeclareOption{nano}{%
-	\@encodingtrue
-	\@mathtrue
-	\@graphicstrue
-	\@tablestrue
+% common option combinations
+\newcommand{\baseoptions}{\@encodingtrue \@graphicstrue \@mathtrue \@tablestrue}
+\newcommand{\extraoptions}{\@columnstrue \@liststrue \@spacingstrue \@typesettingtrue}
+
+% base options
+\DeclareOption{base}{%
+	\baseoptions
 }
 
-% micro options
-\DeclareOption{micro}{%
-	\@encodingtrue
-	\@mathtrue
-	\@graphicstrue
-	\@tablestrue
-	\@liststrue
-	\@columnstrue
-	\@spacingstrue
+% extra options
+\DeclareOption{extra}{%
+	\baseoptions
+	\extraoptions
 }
 
-% milli options
-\DeclareOption{milli}{%
-	\@encodingtrue
-	\@typesettingtrue
-	\@mathtrue
-	\@graphicstrue
-	\@tablestrue
+% experiment options
+\DeclareOption{experiment}{%
+	\baseoptions
+	\extraoptions
 	\@captionsfootnotestrue
-	\@liststrue
-	\@columnstrue
-	\@spacingstrue
 	\@hyperreftrue
+	\@physicstrue
 }
 
-% kilo options
-\DeclareOption{kilo}{%
-	\@encodingtrue
-	\@typesettingtrue
-	\@mathtrue
-	\@theoremstrue
-	\@physicstrue
-	\@graphicstrue
-	\@tablestrue
+% script options
+\DeclareOption{script}{%
+	\baseoptions
+	\extraoptions
 	\@captionsfootnotestrue
-	\@liststrue
-	\@columnstrue
-	\@spacingstrue
-	\@hyperreftrue
-}
-
-% mega options (recommended; everything except toc and headings)
-\DeclareOption{mega}{%
-	\@encodingtrue
-	\@typesettingtrue
-	\@mathtrue
-	\@theoremstrue
-	\@physicstrue
-	\@compscitrue
-	\@graphicstrue
-	\@tablestrue
-	\@captionsfootnotestrue
-	\@liststrue
-	\@columnstrue
-	\@spacingstrue
-	\@codetrue
-	\@hyperreftrue
-}
-
-% giga options (all; caution - toc and spacing options are known to conflict, see comments in the respective sections)
-\DeclareOption{giga}{%
-	\@encodingtrue
-	\@typesettingtrue
-	\@mathtrue
-	\@theoremstrue
-	\@physicstrue
-	\@compscitrue
-	\@graphicstrue
-	\@tablestrue
-	\@captionsfootnotestrue
-	\@liststrue
-	\@columnstrue
-	\@toctrue
-	\@spacingstrue
-	\@codetrue
 	\@headingstrue
 	\@hyperreftrue
+	\@physicstrue
+	\@theoremstrue
+}
+
+% compsci options
+\DeclareOption{compsci}{%
+	\baseoptions
+	\extraoptions
+	\@compscitrue
+	\@physicstrue
+}
+
+% complete options
+\DeclareOption{complete}{%
+	\baseoptions
+	\extraoptions
+	\@captionsfootnotestrue
+	\@compscitrue
+	\@headingstrue
+	\@hyperreftrue
+	\@physicstrue
+	\@theoremstrue
+}
+
+% all options
+\DeclareOption{all}{%
+	\baseoptions
+	\extraoptions
+	\@captionsfootnotestrue
+	\@compscitrue
+	\@headingstrue
+	\@hyperreftrue
+	\@physicstrue
+	\@theoremstrue
+	\@codetrue
 }
 
 % fallback for unknown options
@@ -209,6 +190,16 @@
 \fi
 
 
+\if@compsci
+	% see https://tex.stackexchange.com/a/230789 for why this combination of packages is chosen
+	% see examples folder for usage
+	\RequirePackage{algorithm}
+	% provides a floating environment for algorithms (part of the package bundle 'algorithms')
+	\RequirePackage{algpseudocode}
+	% pseudocode flavor of the package 'algorithmicx'
+\fi
+
+
 \if@graphics
 	\RequirePackage{graphicx}
 	% graphics embedding
@@ -249,14 +240,6 @@
 
 	\renewcommand{\footnoterule}{\kern -3pt \hrule width \textwidth height 1pt \kern 2pt}
 	% -> Options: footnoterule as wide as textwidth
-\fi
-
-
-\if@compsci
-	\RequirePackage{algorithm}
-	% for writing pseudocode
-	\RequirePackage{algpseudocode}
-	% enhancement of package 'algorithm' (see examples folder for usage)
 \fi
 
 
@@ -475,14 +458,17 @@
 
 
 \if@compsci
-	%% -> Options (several packages): useful compsci macros
+	%% -> Options: useful compsci macros
+	% see examples folder for usage
 
 	% asymptotic notation shortcuts
-	\renewcommand{\O}[1]{\mathcal{O}{#1}}
-	\renewcommand{\o}[1]{o\left(#1\right)}
-	\renewcommand{\t}[1]{\Theta\left(#1\right)}
-	\newcommand{\Om}[1]{\Omega\left(#1\right)}
-	\newcommand{\om}[1]{\omega\left(#1\right)}
+	\renewcommand{\O}[1]{\ensuremath{\mathcal{O}\left(#1\right)}}
+	\renewcommand{\o}[1]{\ensuremath{o\left(#1\right)}}
+	% -> Caveats: \O and \o usually print a Danish/Norwegian "slashed-o"
+	\renewcommand{\t}[1]{\ensuremath{\Theta\left(#1\right)}}
+	% -> Caveats: \t usually prints a "\tie-after" accent
+	\newcommand{\Om}[1]{\ensuremath{\Omega\left(#1\right)}}
+	\newcommand{\om}[1]{\ensuremath{\omega\left(#1\right)}}
 \fi
 
 
