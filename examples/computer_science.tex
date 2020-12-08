@@ -1,70 +1,75 @@
-\documentclass[11pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[a4paper]{geometry}
+\documentclass[11pt, a4paper]{article}
 \usepackage[english]{babel}
 
-\usepackage[mega]{atlas-preamble}
+\usepackage[compsci]{atlas-preamble}
 
-\title{Computer Science and Atlas}
-\date{December 2020}
+
+
+\title{Computer Science and \texttt{atlas-preamble}}
+\author{\texttt{atlas-preamble} contributors}
+\date{\today}
+
 
 \begin{document}
 
 \maketitle
 
+
 \section{Introduction}
+To include computer science notation macros and packages in your document, use \texttt{atlas-preamble} either with the \texttt{compsci} preset, which includes some basic and other tweaks, or use the \texttt{compsci} option on its own.
 
-To use computer science notation, use either the mega option:
-TODO option here
+\noindent
+You then have the following benefits:
 
-Or use the compsc option. You then have the following benefits:
 
-\section{Theoretical notation}
 
-$\O{\frac{n^2}{m}}$
+\section{Theoretical notation macros}
+The following often-used symbols in theoretical computer science get abbreviated macros:
+\begin{align*}
+	&\texttt{\textbackslash O\{\}} & &\texttt{\textbackslash o\{\}} & &\texttt{\textbackslash T\{\}} & &\texttt{\textbackslash Om\{\}} & &\texttt{\textbackslash om\{\}} \\
+	&\O{\frac{n^2}{m}} & &\o{\frac{n^2}{m}} & &\T{\frac{n^2}{m}} & &\Om{\frac{n^2}{m}} & &\om{\frac{n^2}{m}}
+\end{align*}
 
-$\o{\frac{n^2}{m}}$
+\noindent
+Careful: If you need to use the Danish/Norwegian "slashed-o" (\slashedO{} or \slashedo{}, usually produced by \texttt{\textbackslash O} and \texttt{\textbackslash o}), use the commands \texttt{\textbackslash slashedO} and \texttt{\textbackslash slashedo}, respectively.
 
-$\t{\frac{n^2}{m}}$
 
-$\Om{\frac{n^2}{m}}$
-
-$\om{\frac{n^2}{m}}$
 
 \section{Pseudocode}
-For the example algorithm using algpseudocode from the algorithmicx documentation, see Algorithm \ref{alg:ex1}.
+For the example algorithm using \texttt{algpseudocode} from the \texttt{algorithmicx} documentation, see Algorithm \ref{alg:ex1}.
 
 \begin{algorithm}
-\caption{The Bellman-Kalaba algorithm} \label{alg:ex1}
+\label{alg:ex1}
+\caption{The Bellman-Kalaba algorithm}
     \begin{algorithmic}[1]
-    \Procedure {BellmanKalaba}{$G$, $u$, $l$, $p$}
-        \ForAll {$v \in V(G)$}
+    \Procedure{BellmanKalaba}{$G$, $u$, $l$, $p$}
+        \ForAll{$v \in V(G)$}
             \State $l(v) \leftarrow \infty$
         \EndFor
         \State $l(u) \leftarrow 0$
         \Repeat
-            \For {$i \leftarrow 1, n$}
+            \For{$i \leftarrow 1, n$}
                 \State $min \leftarrow l(v_i)$
-                \For {$j \leftarrow 1, n$}
-                    \If {$min > e(v_i, v_j) + l(v_j)$}
+                \For{$j \leftarrow 1, n$}
+                    \If{$min > e(v_i, v_j) + l(v_j)$}
                         \State $min \leftarrow e(v_i, v_j) + l(v_j)$
                         \State $p(i) \leftarrow v_j$
                     \EndIf
                 \EndFor
-                \State $l’(i) \leftarrow min$
+                \State $l'(i) \leftarrow min$
             \EndFor
-            \State $changed \leftarrow l \not= l’$
-            \State $l \leftarrow l’$
+            \State $changed \leftarrow l \not= l'$
+            \State $l \leftarrow l'$
         \Until{$\neg changed$}
     \EndProcedure
     
     \Statex
-    \Procedure {FindPathBK}{$v$, $u$, $p$}
-        \If {$v = u$}
+    \Procedure{FindPathBK}{$v$, $u$, $p$}
+        \If{$v = u$}
             \State \textbf{Write} $v$
         \Else
             \State $w \leftarrow v$
-            \While {$w \not= u$}
+            \While{$w \not= u$}
                 \State \textbf{Write} $w$
                 \State $w \leftarrow p(w)$
             \EndWhile
