@@ -197,6 +197,7 @@
 	% provides a floating environment for algorithms (part of the package bundle 'algorithms')
 	\RequirePackage{algpseudocode}
 	% pseudocode flavor of the package 'algorithmicx'
+	\RequirePackage{xparse} % to parse. Needed for overloading same command with different #arguments
 \fi
 
 
@@ -370,6 +371,8 @@
 	\renewcommand{\rho}{\ensuremath{\varrho}}
 	\let\oldphi\phi
 	\renewcommand{\phi}{\ensuremath{\varphi}}
+	\let\oldPhi\Phi
+	\renewcommand{\Phi}{\ensuremath{\varPhi}}
 \fi
 
 
@@ -467,6 +470,39 @@
 	\newcommand{\Th}[1]{\ensuremath{\Theta\left(#1\right)}}
 	\newcommand{\Om}[1]{\ensuremath{\Omega\left(#1\right)}}
 	\newcommand{\om}[1]{\ensuremath{\omega\left(#1\right)}}
+	
+	\NewDocumentCommand\Set{mg}{%
+    \ensuremath{\bigl\{ #1 \IfNoValueTF{#2}{}{\bigm| #2} \bigr\}}%
+	}
+	
+	% Expectation
+	\NewDocumentCommand\E{mg}{
+	\ensuremath{\mathop{\mathbb{E}}\IfNoValueTF{#2}{}{_{#1}} \left[ \IfNoValueTF{#2}{#1}{#2} \right] }
+	}
+	
+	% Variance
+	\NewDocumentCommand\Var{mg}{
+	\ensuremath{\operatorname{Var}\IfNoValueTF{#2}{}{_{#1}} \left[ \IfNoValueTF{#2}{#1}{#2} \right] }
+	}
+	
+	% Covariance
+	\NewDocumentCommand\Cov{mg}{
+	\ensuremath{\operatorname{Cov}\IfNoValueTF{#2}{}{_{#1}} \left( \IfNoValueTF{#2}{#1}{#2} \right) }
+	}
+
+	\let\Pr\oldPr
+	\newcommand{\Pr}[1]{\operatorname{Pr}\left[ #1 \right]}
+	
+	\DeclareMathOperator*{\argmax}{arg\,max}
+	\DeclareMathOperator*{\argmin}{arg\,min}
+	
+	% algorithm
+	\newcommand{\algorithminput}{\textbf{Input: }}
+	\newcommand{\algorithmoutput}{\textbf{Output: }}
+
+
+
+	
 \fi
 
 

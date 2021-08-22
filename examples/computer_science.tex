@@ -1,7 +1,7 @@
 \documentclass[11pt, a4paper]{article}
 \usepackage[english]{babel}
 
-\usepackage[compsci]{atlas-preamble}
+\usepackage[compsci]{../atlas-preamble}
 
 
 
@@ -31,14 +31,32 @@ The following often-used symbols in theoretical computer science get abbreviated
 \end{align*}
 
 
+\section{Statistical notation}
+
+There are several useful statistical notations.
+
+\begin{align*}
+	&\texttt{\textbackslash E\{\}\{\}}
+	&&\texttt{\textbackslash Var\{\}\{\}}
+	&&\texttt{\textbackslash Cov\{\}\{\}} &  \\
+	&\E{a}{a^2+b+1} 
+	&& \Var{a}{a^2+b+1}
+	&& \Cov{a}{A+u v^T} &
+\end{align*}
+If only one argument is given, the subscript will be left out.
+
 
 \section{Pseudocode}
 For the example algorithm using \texttt{algpseudocode} from the \texttt{algorithmicx} documentation, see Algorithm \ref{alg:ex1}.
 
 \begin{algorithm}
-\label{alg:ex1}
 \caption{The Bellman-Kalaba algorithm}
-    \begin{algorithmic}[1]
+\label{alg:ex1} % note that \label should be given AFTER \caption and BEFORE \begin{algorithmic}
+\algorithminput{Some input} 
+
+\algorithmoutput{Some output} 
+
+  \begin{algorithmic}[1]
     \Procedure{BellmanKalaba}{$G$, $u$, $l$, $p$}
         \ForAll{$v \in V(G)$}
             \State $l(v) \leftarrow \infty$
