@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{atlas-preamble}[2020/12/08 v1.1 Niklas Bogensperger's custom preamble]
+\ProvidesPackage{atlas-preamble}[2020/12/08 v2.0 Niklas Bogensperger's custom preamble]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -160,6 +160,7 @@
 	% necessary math features
 	\RequirePackage{amssymb}
 	% necessary math symbols
+	\RequirePackage{bbm} % needed for the indicator function: \mathbbm{1}. Needs to be loaded before bm package to avoid error: "Package inputenc Error: Keyboard character used is undefined (inputenc)"
 	\RequirePackage{bm}
 	% better bold math symbols
 	% -> Caveats: needs to be loaded after package 'amsmath' to avoid conflicts
@@ -198,6 +199,8 @@
 	\RequirePackage{algpseudocode}
 	% pseudocode flavor of the package 'algorithmicx'
 	\RequirePackage{xparse} % to parse. Needed for overloading same command with different #arguments
+	% complexity theoretic terms
+	\RequirePackage{complexity} % gives inputenc problem....
 \fi
 
 
@@ -335,7 +338,10 @@
 \if@hyperref
 	\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}
 	% see comment for package 'hyperref' below
+	
 	\RequirePackage[hyperfootnotes=false, hypertexnames=false, pdfusetitle]{hyperref}
+	\usepackage{cleveref} % after usepackage hyperref \Cref\ BUT BEFORE THE NEW THEOREM COMMANDS
+	
 	% -> Caveats: package 'hyperref' should almost always be imported last; package 'xcolor' needs to be loaded before to successfully parse the \hypersetup command below
 	% -> Import-time options (hyperref): prohibit link creation in footnotes (would otherwise conflict with package 'footmisc'), enable the more robust but less guessable way to count links, and write correct author and title metadata to pdf file
 	
@@ -349,7 +355,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \if@math
 	%% -> Options (several packages): useful math macros
-
+	
+	% resolving clashes with the complexity package that is imported with compsci
+	\if@compsci
+		\let\R\Rcomplexity
+		\let\K\Kcomplexity
+		\let\C\Ccomplexity
+	\fi
+	
 	% "blackboard bold"-style characters for common number sets
 	\newcommand{\C}{\mathbb{C}}
 	\newcommand{\R}{\mathbb{R}}
@@ -360,6 +373,9 @@
 
 	% "blackboard bold"-style character for the identity
 	\newcommand{\1}{\mathbb{1}}
+	
+	% for definitions. Todo: move to other part beyond the CS area
+	\newcommand{\textdef}[1]{\textbf{#1}}
 
 	% scaling delimiters
 	\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
@@ -373,6 +389,10 @@
 	\renewcommand{\phi}{\ensuremath{\varphi}}
 	\let\oldPhi\Phi
 	\renewcommand{\Phi}{\ensuremath{\varPhi}}
+	
+	% the trace
+	\let\tr\oldtr
+	\newcommand{\tr}[1]{\operatorname{tr}\left( #1 \right)}
 \fi
 
 
@@ -404,16 +424,17 @@
 	\theoremstyle{plain}
 	\newtheorem{theorem}{\localizationtheorem}[section]
 	\newtheorem*{theorem*}{\localizationtheorem}
-	\newtheorem{proposition}{Proposition}[section]
+	\newtheorem{proposition}[theorem]{Proposition}
 	\newtheorem*{proposition*}{Proposition}
-	\newtheorem{lemma}{Lemma}[section]
+	\newtheorem{lemma}[theorem]{Lemma}
+	\newtheorem{observation}[theorem]{Observation}
 	\newtheorem*{lemma*}{Lemma}
-	\newtheorem{corollary}{\localizationcorollary}[section]
+	\newtheorem{corollary}[theorem]{\localizationcorollary}
 	\newtheorem*{corollary*}{\localizationcorollary}
 
 	% predefined style 'definition' for definitions (numbered and unnumbered variants) and other important items (only unnumbered variant)
 	\theoremstyle{definition}
-	\newtheorem{definition}{Definition}[section]
+	\newtheorem{definition}{Definition}
 	\newtheorem*{definition*}{Definition}
 	\newtheorem*{example}{\localizationexample}
 	\newtheorem*{exercise}{\localizationexercise}
@@ -476,6 +497,7 @@
 	}
 	
 	% Expectation
+	\let\E\Ecomplexity % complexity class E is now \Ecomplexity
 	\NewDocumentCommand\E{mg}{
 	\ensuremath{\mathop{\mathbb{E}}\IfNoValueTF{#2}{}{_{#1}} \left[ \IfNoValueTF{#2}{#1}{#2} \right] }
 	}
@@ -499,6 +521,11 @@
 	% algorithm
 	\newcommand{\algorithminput}{\textbf{Input: }}
 	\newcommand{\algorithmoutput}{\textbf{Output: }}
+	
+	% TODO put somewhere more general. Reference:https://tex.stackexchange.com/a/19678/115502
+	% for lineabreaks within tables
+	\newcommand{\specialcell}[2][c]{%
+ 	 \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
 
 
 
