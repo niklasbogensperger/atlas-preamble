@@ -6,7 +6,7 @@
 
 
 \title{Computer Science and \texttt{atlas-preamble}}
-\author{\texttt{atlas-preamble} contributors}
+\author{Responsible for \texttt{compsci} module: Tassilo Schwarz\footnote{Email: \texttt{lastname@maths.ox.ac.uk}}}
 \date{\today}
 
 
@@ -16,7 +16,10 @@
 
 
 \section{Introduction}
-To include computer science notation macros and packages in your document, use \texttt{atlas-preamble} either with the \texttt{compsci} preset, which includes some basic and other tweaks, or use the \texttt{compsci} option on its own.
+To use computer science notation and packages in your document, use \texttt{atlas-preamble}, use the \texttt{compsci} option:
+\begin{verbatim}
+	\usepackage[compsci]{atlas-preamble}
+\end{verbatim}
 
 \noindent
 You then have the following benefits:
@@ -31,21 +34,6 @@ The following often-used symbols in theoretical computer science get abbreviated
 \end{align*}
 
 
-\section{Statistical notation}
-
-There are several useful statistical notations.
-
-\begin{align*}
-	&\texttt{\textbackslash E\{\}\{\}}
-	&&\texttt{\textbackslash Var\{\}\{\}}
-	&&\texttt{\textbackslash Cov\{\}\{\}} &  \\
-	&\E{a}{a^2+b+1} 
-	&& \Var{a}{a^2+b+1}
-	&& \Cov{a}{A+u v^T} &
-\end{align*}
-If only one argument is given, the subscript will be left out.
-
-
 \section{Pseudocode}
 For the example algorithm using \texttt{algpseudocode} from the \texttt{algorithmicx} documentation, see Algorithm \ref{alg:ex1}.
 
@@ -58,6 +46,10 @@ For the example algorithm using \texttt{algpseudocode} from the \texttt{algorith
 
   \begin{algorithmic}[1]
     \Procedure{BellmanKalaba}{$G$, $u$, $l$, $p$}
+    	\RepeatTimes{$t$}
+    		\State{This will be repeated $t$ times}
+    	\EndRepeatTimes  \CommentLine{This is one line only for a comment.}
+
         \ForAll{$v \in V(G)$}
             \State $l(v) \leftarrow \infty$
         \EndFor
@@ -77,7 +69,8 @@ For the example algorithm using \texttt{algpseudocode} from the \texttt{algorith
             \State $l \leftarrow l'$
         \Until{$\neg changed$}
     \EndProcedure
-    
+    \Statex
+    \Statex \Comment{Here we have extra space}
     \Statex
     \Procedure{FindPathBK}{$v$, $u$, $p$}
         \If{$v = u$}

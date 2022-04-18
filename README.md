@@ -16,24 +16,25 @@ The **_complete_** preset option is recommended if you want the most comprehensi
 
 Somewhat more detailed descriptions, explanations, and potential caveats can be found in the comments of the code itself.
 
-|     | *base* | *extra* | *experiment* | *script* | *compsci* | *complete* | *all* |
-| --- |:------:|:-------:|:------------:|:--------:|:---------:|:----------:|:-----:|
-| **encoding** | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
-| **graphics** | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
-| **math** | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
-| **tables** | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
+|     | *base* | *extra* | *experiment* | *script* | *compsci* | *probability* | *complete* | *all* |
+| --- |:------:|:-------:|:------------:|:--------:|:---------:|:---------:|:----------:|:-----:|
+| **encoding** | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
+| **graphics** | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
+| **math** | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
+| **tables** | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
 ||||||||
-| **columns** |  | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
-| **lists** |  | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
-| **spacings** |  | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
-| **typesetting** |  | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
+| **columns** |  | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
+| **lists** |  | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
+| **spacings** |  | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
+| **typesetting** |  | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
 ||||||||
-| **captionsfootnotes** |  |  | ⬤ | ⬤ |  | ⬤ | ⬤ |
-| **compsci** |  |  |  |  | ⬤ | ⬤ | ⬤ |
-| **headings** |  |  |  | ⬤ |  | ⬤ | ⬤ |
-| **hyperref** |  |  | ⬤ | ⬤ |  | ⬤ | ⬤ |
-| **physics** |  |  | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
-| **theorems** |  |  |  | ⬤ |  | ⬤ | ⬤ |
+| **captionsfootnotes** |  |  | ⬤ | ⬤ |  |  | ⬤ | ⬤ |
+| **compsci** |  |  |  |  | ⬤ |  | ⬤ | ⬤ |
+| **probability** |  |  |  |  |  | ⬤ | ⬤ | ⬤ |
+| **headings** |  |  |  | ⬤ |  |  | ⬤ | ⬤ |
+| **hyperref** |  |  | ⬤ | ⬤ |  |  | ⬤ | ⬤ |
+| **physics** |  |  | ⬤ | ⬤ | ⬤ |  | ⬤ | ⬤ |
+| **theorems** |  |  |  | ⬤ |  |  | ⬤ | ⬤ |
 ||||||||
-| **code** |  |  |  |  |  |  | ⬤ |
-| **toc** |  |  |  |  |  |
+| **code** |  |  |  |  |  |  |  | ⬤ |
+| **toc** |  |  |  |  |  |  |

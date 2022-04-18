@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{atlas-preamble}[2020/12/08 v2.0 Niklas Bogensperger's custom preamble]
+\ProvidesPackage{atlas-preamble}[2020/12/08 v1.1 Niklas Bogensperger's custom preamble]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -16,6 +16,7 @@
 \newif\if@hyperref
 \newif\if@lists
 \newif\if@math
+\newif\if@probability
 \newif\if@physics
 \newif\if@spacings
 \newif\if@tables
@@ -46,6 +47,7 @@
 \DeclareOption{hyperref}{\@hyperreftrue}
 \DeclareOption{lists}{\@liststrue}
 \DeclareOption{math}{\@mathtrue}
+\DeclareOption{probability}{\@probabilitytrue}
 \DeclareOption{physics}{\@physicstrue}
 \DeclareOption{spacings}{\@spacingstrue}
 \DeclareOption{tables}{\@tablestrue}
@@ -96,12 +98,21 @@
 	\@physicstrue
 }
 
+% probability options
+\DeclareOption{probability}{%
+	\baseoptions
+	\extraoptions
+	\@probabilitytrue
+}
+
 % complete options
 \DeclareOption{complete}{%
 	\baseoptions
 	\extraoptions
 	\@captionsfootnotestrue
 	\@compscitrue
+	\@probabilitytrue
+	\@probabilitytrue
 	\@headingstrue
 	\@hyperreftrue
 	\@physicstrue
@@ -114,6 +125,8 @@
 	\extraoptions
 	\@captionsfootnotestrue
 	\@compscitrue
+	\@probabilitytrue
+	\@probabilitytrue
 	\@headingstrue
 	\@hyperreftrue
 	\@physicstrue
@@ -201,6 +214,12 @@
 	\RequirePackage{xparse} % to parse. Needed for overloading same command with different #arguments
 	% complexity theoretic terms
 	\RequirePackage{complexity} % gives inputenc problem....
+\fi
+
+
+\if@probability
+\RequirePackage{xparse} % to parse. Needed for overloading same command with different #arguments
+\RequirePackage{xspace} % to get space after command. Needed for \iid
 \fi
 
 
@@ -393,6 +412,10 @@
 	% the trace
 	\let\tr\oldtr
 	\newcommand{\tr}[1]{\operatorname{tr}\left( #1 \right)}
+
+	% argmin argmax
+	\DeclareMathOperator*{\argmax}{arg\,max}
+	\DeclareMathOperator*{\argmin}{arg\,min}
 \fi
 
 
@@ -408,6 +431,7 @@
 	\newcommand{\localizationexample}{Example}
 	\newcommand{\localizationexercise}{Exercise}
 	\newcommand{\localizationremark}{Remark}
+	\newcommand{\localizationclaim}{Claim}
 	\newcommand{\localizationprerequisites}{Prerequisite(s):}
 	\newcommand{\localizationstatements}{Statement(s):}
 	\if@languagegerman
@@ -415,6 +439,7 @@
 		\renewcommand{\localizationcorollary}{Korollar}
 		\renewcommand{\localizationexample}{Beispiel}
 		\renewcommand{\localizationexercise}{Übung}
+		\renewcommand{\localizationclaim}{Claim}
 		\renewcommand{\localizationremark}{Bemerkung}
 		\renewcommand{\localizationprerequisites}{Gegeben:}
 		\renewcommand{\localizationstatements}{Aussage(n):}
@@ -431,6 +456,8 @@
 	\newtheorem*{lemma*}{Lemma}
 	\newtheorem{corollary}[theorem]{\localizationcorollary}
 	\newtheorem*{corollary*}{\localizationcorollary}
+	\newtheorem*{claim*}{\localizationclaim}
+	\newtheorem{claim}[theorem]{\localizationclaim}
 
 	% predefined style 'definition' for definitions (numbered and unnumbered variants) and other important items (only unnumbered variant)
 	\theoremstyle{definition}
@@ -491,46 +518,61 @@
 	\newcommand{\Th}[1]{\ensuremath{\Theta\left(#1\right)}}
 	\newcommand{\Om}[1]{\ensuremath{\Omega\left(#1\right)}}
 	\newcommand{\om}[1]{\ensuremath{\omega\left(#1\right)}}
-	
+
 	\NewDocumentCommand\Set{mg}{%
     \ensuremath{\bigl\{ #1 \IfNoValueTF{#2}{}{\bigm| #2} \bigr\}}%
 	}
 	
+	% algorithm
+	\newcommand{\algorithminput}{\textbf{Input: }}
+	\newcommand{\algorithmoutput}{\textbf{Output: }}
+	\algnewcommand{\CommentLine}[1]{\State \(\triangleright\) #1} % comment on a single line
+	\algdef{SE}{RepeatTimes}{EndRepeatTimes}[1]{\textbf{repeat } \(\mbox{#1}\) \textbf{times}}{\textbf{end}} % own loop
+
+	
+	% TODO put somewhere more general. Reference:https://tex.stackexchange.com/a/19678/115502
+	% for lineabreaks within tables
+	\newcommand{\specialcell}[2][c]{%
+ 	 \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}	   	  
+\fi
+
+
+\if@probability
+	%% -> Options: useful probability macros
+
+	\let\Pr\oldPr
+	\newcommand{\Pr}[1]{\operatorname{\mathbb{P}}\left[ #1 \right]}
+	\newcommand{\iid}{i.i.d\@ifnextchar.{}{.\@\xspace}} 
+	\newcommand{\ind}[1]{\mathbbm{1}_{#1}} % indicator
+
+	% technical
+
 	% Expectation
-	\let\E\Ecomplexity % complexity class E is now \Ecomplexity
+	\if@compsci
+		\let\E\Ecomplexity % complexity class E is now \Ecomplexity
+	\fi
 	\NewDocumentCommand\E{mg}{
 	\ensuremath{\mathop{\mathbb{E}}\IfNoValueTF{#2}{}{_{#1}} \left[ \IfNoValueTF{#2}{#1}{#2} \right] }
 	}
+	
+	% factorial moment
+	\newcommand{\Efact}[2]{{\mathbb{E}}_{#1}\left[ #2 \right]}
 	
 	% Variance
 	\NewDocumentCommand\Var{mg}{
 	\ensuremath{\operatorname{Var}\IfNoValueTF{#2}{}{_{#1}} \left[ \IfNoValueTF{#2}{#1}{#2} \right] }
 	}
-	
+
 	% Covariance
 	\NewDocumentCommand\Cov{mg}{
 	\ensuremath{\operatorname{Cov}\IfNoValueTF{#2}{}{_{#1}} \left( \IfNoValueTF{#2}{#1}{#2} \right) }
 	}
-
-	\let\Pr\oldPr
-	\newcommand{\Pr}[1]{\operatorname{Pr}\left[ #1 \right]}
 	
-	\DeclareMathOperator*{\argmax}{arg\,max}
-	\DeclareMathOperator*{\argmin}{arg\,min}
-	
-	% algorithm
-	\newcommand{\algorithminput}{\textbf{Input: }}
-	\newcommand{\algorithmoutput}{\textbf{Output: }}
-	
-	% TODO put somewhere more general. Reference:https://tex.stackexchange.com/a/19678/115502
-	% for lineabreaks within tables
-	\newcommand{\specialcell}[2][c]{%
- 	 \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
-
-
-
+	% distributions
+	\newcommand{\Bernoulli}[1]{\operatorname{Bernoulli}\left( #1 \right)}
+	\newcommand{\Bin}[2]{\operatorname{Bin}\left( #1, #2 \right)}
+	\newcommand{\Po}[1]{\operatorname{Po}\left( #1 \right)}
 	
 \fi
-
 
 \endinput
