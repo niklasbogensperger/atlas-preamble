@@ -1,5 +1,15 @@
+\def\atlaspreamble@name{atlas-preamble}
+\def\atlaspreamble@version{2.0.0}
+\def\atlaspreamble@date{2022/05/31}
+\def\atlaspreamble@msg{Niklas Bogensperger's custom preamble}
+\def\atlaspreamble@url{https://github.com/niklasbogensperger/atlas-preamble}
+\def\atlaspreamble@releaseinfo{\atlaspreamble@date \space v\atlaspreamble@version \space \atlaspreamble@msg \space \atlaspreamble@url}
+\def\atlaspreamble@Error#1#2{\PackageError{\atlaspreamble@name}{#1}{#2}}
+\def\atlaspreamble@Warning#1{\PackageWarning{\atlaspreamble@name}{#1}}
+\def\atlaspreamble@Info#1{\PackageInfo{\atlaspreamble@name}{#1}}
+
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{atlas-preamble}[2022/05/31 v2.0.0 Niklas Bogensperger's custom preamble]
+\ProvidesPackage{\atlaspreamble@name}[\atlaspreamble@releaseinfo]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -135,7 +145,7 @@
 }
 
 % fallback for unknown options
-\DeclareOption*{\PackageWarning{atlas-preamble}{Unknown option '\CurrentOption'}}
+\DeclareOption*{\atlaspreamble@Warning{Unknown option '\CurrentOption'}}
 
 % Process given options
 \ProcessOptions\relax
