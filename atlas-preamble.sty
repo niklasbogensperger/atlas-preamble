@@ -1,26 +1,28 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{atlas-preamble}[2020/11/04 v1.0 Niklas Bogensperger's custom preamble]
+\ProvidesPackage{atlas-preamble}[2022/05/31 v2.0.0 Niklas Bogensperger's custom preamble]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Pre-options section
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % if-switches for options
-\newif\if@encoding
-\newif\if@typesetting
-\newif\if@math
-\newif\if@theorems
-\newif\if@physics
-\newif\if@graphics
-\newif\if@tables
 \newif\if@captionsfootnotes
-\newif\if@lists
-\newif\if@columns
-\newif\if@toc
-\newif\if@spacings
 \newif\if@code
+\newif\if@columns
+\newif\if@compsci
+\newif\if@encoding
+\newif\if@graphics
 \newif\if@headings
 \newif\if@hyperref
+\newif\if@lists
+\newif\if@math
+\newif\if@probability
+\newif\if@physics
+\newif\if@spacings
+\newif\if@tables
+\newif\if@theorems
+\newif\if@toc
+\newif\if@typesetting
 
 % if-switches for other uses
 \newif\if@classuseschapter
@@ -35,105 +37,101 @@
 %% Options section
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % options
-\DeclareOption{encoding}{\@encodingtrue}
-\DeclareOption{typesetting}{\@typesettingtrue}
-\DeclareOption{math}{\@mathtrue}
-\DeclareOption{theorems}{\@theoremstrue}
-\DeclareOption{physics}{\@physicstrue}
-\DeclareOption{graphics}{\@graphicstrue}
-\DeclareOption{tables}{\@tablestrue}
 \DeclareOption{captionsfootnotes}{\@captionsfootnotestrue}
-\DeclareOption{lists}{\@liststrue}
-\DeclareOption{columns}{\@columnstrue}
-\DeclareOption{toc}{\@toctrue}
-\DeclareOption{spacings}{\@spacingstrue}
 \DeclareOption{code}{\@codetrue}
+\DeclareOption{columns}{\@columnstrue}
+\DeclareOption{compsci}{\@compscitrue}
+\DeclareOption{encoding}{\@encodingtrue}
+\DeclareOption{graphics}{\@graphicstrue}
 \DeclareOption{headings}{\@headingstrue}
 \DeclareOption{hyperref}{\@hyperreftrue}
+\DeclareOption{lists}{\@liststrue}
+\DeclareOption{math}{\@mathtrue}
+\DeclareOption{probability}{\@probabilitytrue}
+\DeclareOption{physics}{\@physicstrue}
+\DeclareOption{spacings}{\@spacingstrue}
+\DeclareOption{tables}{\@tablestrue}
+\DeclareOption{theorems}{\@theoremstrue}
+\DeclareOption{toc}{\@toctrue}
+\DeclareOption{typesetting}{\@typesettingtrue}
 
-% nano options
-\DeclareOption{nano}{%
-	\@encodingtrue
-	\@mathtrue
-	\@graphicstrue
-	\@tablestrue
+% common option combinations
+\newcommand{\baseoptions}{\@encodingtrue \@graphicstrue \@mathtrue \@tablestrue}
+\newcommand{\extraoptions}{\@columnstrue \@liststrue \@spacingstrue \@typesettingtrue}
+
+% base options
+\DeclareOption{base}{%
+	\baseoptions
 }
 
-% micro options
-\DeclareOption{micro}{%
-	\@encodingtrue
-	\@mathtrue
-	\@graphicstrue
-	\@tablestrue
-	\@liststrue
-	\@columnstrue
-	\@spacingstrue
+% extra options
+\DeclareOption{extra}{%
+	\baseoptions
+	\extraoptions
 }
 
-% milli options
-\DeclareOption{milli}{%
-	\@encodingtrue
-	\@typesettingtrue
-	\@mathtrue
-	\@graphicstrue
-	\@tablestrue
+% experiment options
+\DeclareOption{experiment}{%
+	\baseoptions
+	\extraoptions
 	\@captionsfootnotestrue
-	\@liststrue
-	\@columnstrue
-	\@spacingstrue
 	\@hyperreftrue
+	\@physicstrue
 }
 
-% kilo options
-\DeclareOption{kilo}{%
-	\@encodingtrue
-	\@typesettingtrue
-	\@mathtrue
-	\@theoremstrue
-	\@physicstrue
-	\@graphicstrue
-	\@tablestrue
+% script options
+\DeclareOption{script}{%
+	\baseoptions
+	\extraoptions
 	\@captionsfootnotestrue
-	\@liststrue
-	\@columnstrue
-	\@spacingstrue
-	\@hyperreftrue
-}
-
-% mega options (recommended; everything except toc and headings)
-\DeclareOption{mega}{%
-	\@encodingtrue
-	\@typesettingtrue
-	\@mathtrue
-	\@theoremstrue
-	\@physicstrue
-	\@graphicstrue
-	\@tablestrue
-	\@captionsfootnotestrue
-	\@liststrue
-	\@columnstrue
-	\@spacingstrue
-	\@codetrue
-	\@hyperreftrue
-}
-
-% giga options (all; caution - toc and spacing options are known to conflict, see comments in the respective sections)
-\DeclareOption{giga}{%
-	\@encodingtrue
-	\@typesettingtrue
-	\@mathtrue
-	\@theoremstrue
-	\@physicstrue
-	\@graphicstrue
-	\@tablestrue
-	\@captionsfootnotestrue
-	\@liststrue
-	\@columnstrue
-	\@toctrue
-	\@spacingstrue
-	\@codetrue
 	\@headingstrue
 	\@hyperreftrue
+	\@physicstrue
+	\@theoremstrue
+}
+
+% compsci options
+\DeclareOption{compsci}{%
+	\baseoptions
+	\extraoptions
+	\@compscitrue
+	\@physicstrue
+}
+
+% probability options
+\DeclareOption{probability}{%
+	\baseoptions
+	\extraoptions
+	\@probabilitytrue
+}
+
+% complete options
+\DeclareOption{complete}{%
+	\baseoptions
+	\extraoptions
+	\@captionsfootnotestrue
+	\@compscitrue
+	\@probabilitytrue
+	\@probabilitytrue
+	\@headingstrue
+	\@hyperreftrue
+	\@physicstrue
+	\@theoremstrue
+}
+
+% all options
+\DeclareOption{all}{%
+	\baseoptions
+	\extraoptions
+	\@captionsfootnotestrue
+	\@compscitrue
+	\@probabilitytrue
+	\@probabilitytrue
+	\@headingstrue
+	\@hyperreftrue
+	\@physicstrue
+	\@theoremstrue
+	\@codetrue
 }
 
 % fallback for unknown options
@@ -175,6 +173,7 @@
 	% necessary math features
 	\RequirePackage{amssymb}
 	% necessary math symbols
+	\RequirePackage{bbm} % needed for the indicator function: \mathbbm{1}. Needs to be loaded before bm package to avoid error: "Package inputenc Error: Keyboard character used is undefined (inputenc)"
 	\RequirePackage{bm}
 	% better bold math symbols
 	% -> Caveats: needs to be loaded after package 'amsmath' to avoid conflicts
@@ -202,6 +201,25 @@
 
 	\sisetup{separate-uncertainty=true}
 	% -> Options (siunitx): separate all uncertainties from their values
+\fi
+
+
+\if@compsci
+	% see https://tex.stackexchange.com/a/230789 for why this combination of packages is chosen
+	% see examples folder for usage
+	\RequirePackage{algorithm}
+	% provides a floating environment for algorithms (part of the package bundle 'algorithms')
+	\RequirePackage{algpseudocode}
+	% pseudocode flavor of the package 'algorithmicx'
+	\RequirePackage{xparse} % to parse. Needed for overloading same command with different #arguments
+	% complexity theoretic terms
+	\RequirePackage{complexity} % gives inputenc problem....
+\fi
+
+
+\if@probability
+\RequirePackage{xparse} % to parse. Needed for overloading same command with different #arguments
+\RequirePackage{xspace} % to get space after command. Needed for \iid
 \fi
 
 
@@ -339,7 +357,10 @@
 \if@hyperref
 	\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}
 	% see comment for package 'hyperref' below
+	
 	\RequirePackage[hyperfootnotes=false, hypertexnames=false, pdfusetitle]{hyperref}
+	\usepackage{cleveref} % after usepackage hyperref \Cref\ BUT BEFORE THE NEW THEOREM COMMANDS
+	
 	% -> Caveats: package 'hyperref' should almost always be imported last; package 'xcolor' needs to be loaded before to successfully parse the \hypersetup command below
 	% -> Import-time options (hyperref): prohibit link creation in footnotes (would otherwise conflict with package 'footmisc'), enable the more robust but less guessable way to count links, and write correct author and title metadata to pdf file
 	
@@ -353,8 +374,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \if@math
 	%% -> Options (several packages): useful math macros
-
-	% "Blackboard bold"-style characters for number sets
+	
+	% resolving clashes with the complexity package that is imported with compsci
+	\if@compsci
+		\let\R\Rcomplexity
+		\let\K\Kcomplexity
+		\let\C\Ccomplexity
+	\fi
+	
+	% "blackboard bold"-style characters for common number sets
 	\newcommand{\C}{\mathbb{C}}
 	\newcommand{\R}{\mathbb{R}}
 	\newcommand{\Q}{\mathbb{Q}}
@@ -362,19 +390,32 @@
 	\newcommand{\N}{\mathbb{N}}
 	\newcommand{\K}{\mathbb{K}}
 
-	% "Blackboard bold"-style character for the identity
+	% "blackboard bold"-style character for the identity
 	\newcommand{\1}{\mathbb{1}}
+	
+	% for definitions. Todo: move to other part beyond the CS area
+	\newcommand{\textdef}[1]{\textbf{#1}}
 
-	% Scaling delimiters
+	% scaling delimiters
 	\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
 
-	% Use "alternative" greek letters by default and redefine the old ones
+	% use "alternative" greek letters by default and redefine the old ones
 	\let\oldepsilon\epsilon
 	\renewcommand{\epsilon}{\ensuremath{\varepsilon}}
 	\let\oldrho\rho
 	\renewcommand{\rho}{\ensuremath{\varrho}}
 	\let\oldphi\phi
 	\renewcommand{\phi}{\ensuremath{\varphi}}
+	\let\oldPhi\Phi
+	\renewcommand{\Phi}{\ensuremath{\varPhi}}
+	
+	% the trace
+	\let\tr\oldtr
+	\newcommand{\tr}[1]{\operatorname{tr}\left( #1 \right)}
+
+	% argmin argmax
+	\DeclareMathOperator*{\argmax}{arg\,max}
+	\DeclareMathOperator*{\argmin}{arg\,min}
 \fi
 
 
@@ -390,6 +431,7 @@
 	\newcommand{\localizationexample}{Example}
 	\newcommand{\localizationexercise}{Exercise}
 	\newcommand{\localizationremark}{Remark}
+	\newcommand{\localizationclaim}{Claim}
 	\newcommand{\localizationprerequisites}{Prerequisite(s):}
 	\newcommand{\localizationstatements}{Statement(s):}
 	\if@languagegerman
@@ -397,6 +439,7 @@
 		\renewcommand{\localizationcorollary}{Korollar}
 		\renewcommand{\localizationexample}{Beispiel}
 		\renewcommand{\localizationexercise}{Übung}
+		\renewcommand{\localizationclaim}{Claim}
 		\renewcommand{\localizationremark}{Bemerkung}
 		\renewcommand{\localizationprerequisites}{Gegeben:}
 		\renewcommand{\localizationstatements}{Aussage(n):}
@@ -406,16 +449,19 @@
 	\theoremstyle{plain}
 	\newtheorem{theorem}{\localizationtheorem}[section]
 	\newtheorem*{theorem*}{\localizationtheorem}
-	\newtheorem{proposition}{Proposition}[section]
+	\newtheorem{proposition}[theorem]{Proposition}
 	\newtheorem*{proposition*}{Proposition}
-	\newtheorem{lemma}{Lemma}[section]
+	\newtheorem{lemma}[theorem]{Lemma}
+	\newtheorem{observation}[theorem]{Observation}
 	\newtheorem*{lemma*}{Lemma}
-	\newtheorem{corollary}{\localizationcorollary}[section]
+	\newtheorem{corollary}[theorem]{\localizationcorollary}
 	\newtheorem*{corollary*}{\localizationcorollary}
+	\newtheorem*{claim*}{\localizationclaim}
+	\newtheorem{claim}[theorem]{\localizationclaim}
 
 	% predefined style 'definition' for definitions (numbered and unnumbered variants) and other important items (only unnumbered variant)
 	\theoremstyle{definition}
-	\newtheorem{definition}{Definition}[section]
+	\newtheorem{definition}{Definition}
 	\newtheorem*{definition*}{Definition}
 	\newtheorem*{example}{\localizationexample}
 	\newtheorem*{exercise}{\localizationexercise}
@@ -443,10 +489,10 @@
 	\newcommand{\thistheoremname}{}
 	\newtheorem*{genericthm*}{\thistheoremname}
 	\newenvironment{summarythm*}[1]
-	    {\renewcommand{\thistheoremname}{#1}%
-	     \setlength{\parindent}{0em}%
-	     \begin{genericthm*}}
-	    {\end{genericthm*}}
+		{\renewcommand{\thistheoremname}{#1}%
+		 \setlength{\parindent}{0em}%
+		 \begin{genericthm*}}
+		{\end{genericthm*}}
 
 	% predefined style 'definition' for summaries of definitions (only unnumbered variant)
 	\theoremstyle{definition}
@@ -455,11 +501,78 @@
 	\newcommand{\thisdefinitionname}{}
 	\newtheorem*{genericdef*}{\thisdefinitionname}
 	\newenvironment{summarydef*}[1]
-	    {\renewcommand{\thisdefinitionname}{#1}%
-	     \setlength{\parindent}{0em}%
-	     \begin{genericdef*}}
-	    {\end{genericdef*}}
+		{\renewcommand{\thisdefinitionname}{#1}%
+		 \setlength{\parindent}{0em}%
+		 \begin{genericdef*}}
+		{\end{genericdef*}}
 \fi
 
+
+\if@compsci
+	%% -> Options: useful compsci macros
+	% see examples folder for usage
+
+	% asymptotic notation shortcuts
+	\newcommand{\Oh}[1]{\ensuremath{\mathcal{O}\left(#1\right)}}
+	\newcommand{\oh}[1]{\ensuremath{o\left(#1\right)}}
+	\newcommand{\Th}[1]{\ensuremath{\Theta\left(#1\right)}}
+	\newcommand{\Om}[1]{\ensuremath{\Omega\left(#1\right)}}
+	\newcommand{\om}[1]{\ensuremath{\omega\left(#1\right)}}
+
+	\NewDocumentCommand\Set{mg}{%
+    \ensuremath{\bigl\{ #1 \IfNoValueTF{#2}{}{\bigm| #2} \bigr\}}%
+	}
+	
+	% algorithm
+	\newcommand{\algorithminput}{\textbf{Input: }}
+	\newcommand{\algorithmoutput}{\textbf{Output: }}
+	\algnewcommand{\CommentLine}[1]{\State \(\triangleright\) #1} % comment on a single line
+	\algdef{SE}{RepeatTimes}{EndRepeatTimes}[1]{\textbf{repeat } \(\mbox{#1}\) \textbf{times}}{\textbf{end}} % own loop
+
+	
+	% TODO put somewhere more general. Reference:https://tex.stackexchange.com/a/19678/115502
+	% for lineabreaks within tables
+	\newcommand{\specialcell}[2][c]{%
+ 	 \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}	   	  
+\fi
+
+
+\if@probability
+	%% -> Options: useful probability macros
+
+	\let\Pr\oldPr
+	\newcommand{\Pr}[1]{\operatorname{\mathbb{P}}\left[ #1 \right]}
+	\newcommand{\iid}{i.i.d\@ifnextchar.{}{.\@\xspace}} 
+	\newcommand{\ind}[1]{\mathbbm{1}_{#1}} % indicator
+
+	% technical
+
+	% Expectation
+	\if@compsci
+		\let\E\Ecomplexity % complexity class E is now \Ecomplexity
+	\fi
+	\NewDocumentCommand\E{mg}{
+	\ensuremath{\mathop{\mathbb{E}}\IfNoValueTF{#2}{}{_{#1}} \left[ \IfNoValueTF{#2}{#1}{#2} \right] }
+	}
+	
+	% factorial moment
+	\newcommand{\Efact}[2]{{\mathbb{E}}_{#1}\left[ #2 \right]}
+	
+	% Variance
+	\NewDocumentCommand\Var{mg}{
+	\ensuremath{\operatorname{Var}\IfNoValueTF{#2}{}{_{#1}} \left[ \IfNoValueTF{#2}{#1}{#2} \right] }
+	}
+
+	% Covariance
+	\NewDocumentCommand\Cov{mg}{
+	\ensuremath{\operatorname{Cov}\IfNoValueTF{#2}{}{_{#1}} \left( \IfNoValueTF{#2}{#1}{#2} \right) }
+	}
+	
+	% distributions
+	\newcommand{\Bernoulli}[1]{\operatorname{Bernoulli}\left( #1 \right)}
+	\newcommand{\Bin}[2]{\operatorname{Bin}\left( #1, #2 \right)}
+	\newcommand{\Po}[1]{\operatorname{Po}\left( #1 \right)}
+	
+\fi
 
 \endinput

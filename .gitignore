@@ -2,6 +2,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/linux,macos,windows,tex
 # Edit at https://www.toptal.com/developers/gitignore?templates=linux,macos,windows,tex
 
+examples/example-generator/ # ignore this director which can be used for generating the example pdfs
+
 ### Linux ###
 *~
 
