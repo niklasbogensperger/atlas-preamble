@@ -147,7 +147,7 @@
 % fallback for unknown options
 \DeclareOption*{\atlaspreamble@Warning{Unknown option '\CurrentOption'}}
 
-% Process given options
+% process given options
 \ProcessOptions\relax
 
 
@@ -157,11 +157,14 @@
 \if@encoding
 	\RequirePackage{lmodern}
 	% latin modern font
+	% -> Provided by / TeXLive package to install: 'lm'
 	% -> Caveats: should be loaded before package 'fontenc'
 	\RequirePackage[T1]{fontenc}
 	% encoding of rendered output
+	% -> Provided by / TeXLive package to install: included in TeX distributions
 	\RequirePackage[utf8]{inputenc}
 	% encoding of source code input
+	% -> Provided by / TeXLive package to install: included in TeX distributions
 	% -> Caveats: loading it after package 'fontenc' is recommended when using option 'utf-8'
 \fi
 
@@ -183,15 +186,21 @@
 	% necessary math features
 	\RequirePackage{amssymb}
 	% necessary math symbols
-	\RequirePackage{bbm} % needed for the indicator function: \mathbbm{1}. Needs to be loaded before bm package to avoid error: "Package inputenc Error: Keyboard character used is undefined (inputenc)"
+	% -> Provided by / TeXLive package to install: 'amsfonts'
+	% -> Caveats: loads package 'amsfonts' (wanted behavior; we do not need to do it twice)
 	\RequirePackage{bm}
 	% better bold math symbols
+	% -> Provided by / TeXLive package to install: 'tools'
 	% -> Caveats: needs to be loaded after package 'amsmath' to avoid conflicts
+	\RequirePackage{dsfont}
+	% doublestroke math font
+	% -> Provided by / TeXLive package to install: 'doublestroke'
+	% -> Needed for: doublestroke '1' symbol, i.e. indicator function
 	\RequirePackage{mathtools}
 	% some extensions and fixes to amsmath
 	% -> Caveats: loads package 'amsmath' if not already imported
 
-	% -> Options (several packages): useful math macros in auxiliary features section below
+	% -> Options (several packages): useful macros in auxiliary features section below
 \fi
 
 
@@ -216,38 +225,45 @@
 
 \if@compsci
 	% see https://tex.stackexchange.com/a/230789 for why this combination of packages is chosen
-	% see examples folder for usage
 	\RequirePackage{algorithm}
-	% provides a floating environment for algorithms (part of the package bundle 'algorithms')
+	% -> Provided by / TeXLive package to install: 'algorithms'
+	% floating environment for algorithms (part of the package bundle 'algorithms')
 	\RequirePackage{algpseudocode}
 	% pseudocode flavor of the package 'algorithmicx'
-	\RequirePackage{xparse} % to parse. Needed for overloading same command with different #arguments
-	% complexity theoretic terms
-	\RequirePackage{complexity} % gives inputenc problem....
+	% -> Provided by / TeXLive package to install: 'algorithmicx'
+	\RequirePackage{complexity}
+	% typesetting for complexity theoretic terms (e.g. P, NP, EXPSPACE, etc.)
+	% -> Caveats: redefines \L (Ł), \P (¶), and \S (§); access these using \default{L,P,S}
+
+	% -> Options (several packages): useful macros in auxiliary features section below
 \fi
 
 
 \if@probability
-\RequirePackage{xparse} % to parse. Needed for overloading same command with different #arguments
-\RequirePackage{xspace} % to get space after command. Needed for \iid
+	% nothing here yet...
+	% -> Options: useful macros in auxiliary features section below
 \fi
 
 
 \if@graphics
 	\RequirePackage{graphicx}
 	% graphics embedding
+	% -> Provided by / TeXLive package to install: 'graphics'
 	\RequirePackage{wrapfig}
 	% wrap text around figures
+	% TODO: consider using package 'wrapfig2' instead
 \fi
 
 
 \if@tables
 	\RequirePackage{array}
 	% tables in their most essential form
+	% -> Provided by / TeXLive package to install: 'tools'
 	\RequirePackage{booktabs}
 	% tables without horizontal lines for aesthetics
 	\RequirePackage{tabularx}
 	% tables which can automatically fit the page width
+	% -> Provided by / TeXLive package to install: 'tools'
 	\RequirePackage{tabulary}
 	% tables which can automatically fit the page width and have variable width columns that can have different text alignments
 	\RequirePackage{xltabular}
@@ -288,6 +304,7 @@
 \if@columns
 	\RequirePackage{multicol}
 	% multiple columns environment
+	% -> Provided by / TeXLive package to install: 'tools'
 \fi
 
 
@@ -336,7 +353,8 @@
 	% see comment for package 'minted' below
 	\RequirePackage[newfloat, outputdir=.texpadtmp]{minted}
 	% formatting and highlighting for code
-	% -> Caveats: package 'floatrow' needs to be loaded before to avoid conflicts when using import-time option 'newfloat'; package 'caption' needs to be loaded before to successfully parse the \newenvironment command
+	% -> Caveats: package 'floatrow' needs to be loaded before to avoid conflicts when using import-time option 'newfloat'
+	%			  package 'caption' needs to be loaded before to successfully parse the \newenvironment command
 	% -> Import-time options (minted): 'outputdir' is used to hide intermediate files in Texpad's hidden folder for those files
 
 	\newenvironment{code}{\captionsetup{type=listing}}{}
@@ -367,13 +385,18 @@
 \if@hyperref
 	\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}
 	% see comment for package 'hyperref' below
-	
+
 	\RequirePackage[hyperfootnotes=false, hypertexnames=false, pdfusetitle]{hyperref}
-	\usepackage{cleveref} % after usepackage hyperref \Cref\ BUT BEFORE THE NEW THEOREM COMMANDS
-	
-	% -> Caveats: package 'hyperref' should almost always be imported last; package 'xcolor' needs to be loaded before to successfully parse the \hypersetup command below
+	% basic cross-reference commands
+	% -> Caveats: package 'hyperref' should almost always be imported last
+	%			  package 'xcolor' needs to be loaded before to successfully parse the \hypersetup command below
 	% -> Import-time options (hyperref): prohibit link creation in footnotes (would otherwise conflict with package 'footmisc'), enable the more robust but less guessable way to count links, and write correct author and title metadata to pdf file
-	
+	\RequirePackage{cleveref}
+	% enhanced cross-reference features
+	% -> Caveats: package 'cleveref' should almost always be imported last and must be imported after package 'hyperref'
+	%			  use with package 'amsthm' to allow the theorem type to be determined automatically; all \newtheorem definitions must be placed after package 'cleveref' is loaded
+	%			  when using package 'babel' for support for other languages, pass the language optional argument not to the babel package but to the documentclass, so cleveref recognizes it as well
+
 	\hypersetup{colorlinks, allcolors={blue!65!black}}
 	% -> Options (hyperref): setup colors of links
 \fi
@@ -383,16 +406,20 @@
 %% Post-options section -- auxiliary features of some enabled options
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \if@math
-	%% -> Options (several packages): useful math macros
-	
 	% resolving clashes with the complexity package that is imported with compsci
 	\if@compsci
+	%% -> Options (several packages): useful math macros (see examples folder for usage)
+
+	\@ifpackageloaded{xparse}{}{\RequirePackage{xparse}}
+	% high-level interface for advanced document-level commands (\NewDocumentCommand, \IfNoValueTF, etc.)
+	% -> Provided by / TeXLive package to install: 'l3packages'
+
+	% use "blackboard bold"-style characters for common number sets
+	% avoiding clashes with the complexity package that is imported with the cs option
 		\let\R\Rcomplexity
 		\let\K\Kcomplexity
 		\let\C\Ccomplexity
 	\fi
-	
-	% "blackboard bold"-style characters for common number sets
 	\newcommand{\C}{\mathbb{C}}
 	\newcommand{\R}{\mathbb{R}}
 	\newcommand{\Q}{\mathbb{Q}}
@@ -400,57 +427,75 @@
 	\newcommand{\N}{\mathbb{N}}
 	\newcommand{\K}{\mathbb{K}}
 
-	% "blackboard bold"-style character for the identity
-	\newcommand{\1}{\mathbb{1}}
-	
-	% for definitions. Todo: move to other part beyond the CS area
-	\newcommand{\textdef}[1]{\textbf{#1}}
+	% "double stroke"-style character for the identity (not available via "blackboard bold" fonts)
+	% can also be used with an argument to signify an indicator function with a subscript
+	\NewDocumentCommand{\1}{g}{%
+		\ensuremath{\mathds{1}%
+		\IfNoValueTF{#1}
+			{}
+			{_{#1}}
+		}%
+	}
 
-	% scaling delimiters
+	% easily declare mathematical sets with either a single argument or two arguments for pipe-separated condition
+	\NewDocumentCommand{\Set}{m g}{%
+		\ensuremath{\left\{ #1%
+		\IfNoValueTF{#2}
+			{}
+			{\ \middle|\ #2}
+		\right\}%
+		}%
+	}
+
+	% easy scaling delimiters for inner product sharp angle braces
 	\DeclarePairedDelimiterX{\inp}[2]{\langle}{\rangle}{#1, #2}
 
-	% use "alternative" greek letters by default and redefine the old ones
+	% nice spacing for argmin and argmax operators
+	\DeclareMathOperator*{\argmax}{arg\,max}
+	\DeclareMathOperator*{\argmin}{arg\,min}
+
+	% use some alternative "var" greek letters by default and redefine the old ones
 	\let\oldepsilon\epsilon
 	\renewcommand{\epsilon}{\ensuremath{\varepsilon}}
 	\let\oldrho\rho
 	\renewcommand{\rho}{\ensuremath{\varrho}}
 	\let\oldphi\phi
 	\renewcommand{\phi}{\ensuremath{\varphi}}
-	\let\oldPhi\Phi
-	\renewcommand{\Phi}{\ensuremath{\varPhi}}
-	
-	% the trace
-	\let\tr\oldtr
-	\newcommand{\tr}[1]{\operatorname{tr}\left( #1 \right)}
-
-	% argmin argmax
-	\DeclareMathOperator*{\argmax}{arg\,max}
-	\DeclareMathOperator*{\argmin}{arg\,min}
 \fi
 
 
 \if@theorems
-	%% -> Options (amsthm): theorem style setup
+	%% -> Options (amsthm): theorem style setup (see examples folder for usage)
 
 	% fix paragraph spacing if package 'parskip' is loaded; see https://tex.stackexchange.com/a/22130
 	\@ifpackageloaded{parskip}{\def\thm@space@setup{\thm@preskip=\parskip \thm@postskip=0pt}}{}
 
 	% localization
 	\newcommand{\localizationtheorem}{Theorem}
+	\newcommand{\localizationclaim}{Claim}
+	\newcommand{\localizationproposition}{Proposition}
+	\newcommand{\localizationlemma}{Lemma}
+	\newcommand{\localizationobservation}{Observation}
 	\newcommand{\localizationcorollary}{Corollary}
+	\newcommand{\localizationdefinition}{Definition}
 	\newcommand{\localizationexample}{Example}
 	\newcommand{\localizationexercise}{Exercise}
 	\newcommand{\localizationremark}{Remark}
-	\newcommand{\localizationclaim}{Claim}
+	\newcommand{\localizationnotation}{Notation}
 	\newcommand{\localizationprerequisites}{Prerequisite(s):}
 	\newcommand{\localizationstatements}{Statement(s):}
 	\if@languagegerman
 		\renewcommand{\localizationtheorem}{Satz}
+		\renewcommand{\localizationclaim}{Behauptung}
+		\renewcommand{\localizationproposition}{Proposition}
+		\renewcommand{\localizationlemma}{Lemma}
+		\renewcommand{\localizationobservation}{Observation}
 		\renewcommand{\localizationcorollary}{Korollar}
+		\renewcommand{\localizationdefinition}{Definition}
 		\renewcommand{\localizationexample}{Beispiel}
 		\renewcommand{\localizationexercise}{Übung}
-		\renewcommand{\localizationclaim}{Claim}
 		\renewcommand{\localizationremark}{Bemerkung}
+		\renewcommand{\localizationnotation}{Notation}
 		\renewcommand{\localizationprerequisites}{Gegeben:}
 		\renewcommand{\localizationstatements}{Aussage(n):}
 	\fi
@@ -459,20 +504,21 @@
 	\theoremstyle{plain}
 	\newtheorem{theorem}{\localizationtheorem}[section]
 	\newtheorem*{theorem*}{\localizationtheorem}
-	\newtheorem{proposition}[theorem]{Proposition}
-	\newtheorem*{proposition*}{Proposition}
-	\newtheorem{lemma}[theorem]{Lemma}
-	\newtheorem{observation}[theorem]{Observation}
-	\newtheorem*{lemma*}{Lemma}
+	\newtheorem{claim}[theorem]{\localizationclaim}
+	\newtheorem*{claim*}{\localizationclaim}
+	\newtheorem{proposition}[theorem]{\localizationproposition}
+	\newtheorem*{proposition*}{\localizationproposition}
+	\newtheorem{lemma}[theorem]{\localizationlemma}
+	\newtheorem*{lemma*}{\localizationlemma}
+	\newtheorem{observation}[theorem]{\localizationobservation}
+	\newtheorem*{observation*}{\localizationobservation}
 	\newtheorem{corollary}[theorem]{\localizationcorollary}
 	\newtheorem*{corollary*}{\localizationcorollary}
-	\newtheorem*{claim*}{\localizationclaim}
-	\newtheorem{claim}[theorem]{\localizationclaim}
 
 	% predefined style 'definition' for definitions (numbered and unnumbered variants) and other important items (only unnumbered variant)
 	\theoremstyle{definition}
-	\newtheorem{definition}{Definition}
-	\newtheorem*{definition*}{Definition}
+	\newtheorem{definition}[theorem]{\localizationdefinition}
+	\newtheorem*{definition*}{\localizationdefinition}
 	\newtheorem*{example}{\localizationexample}
 	\newtheorem*{exercise}{\localizationexercise}
 
@@ -480,7 +526,7 @@
 	\newtheoremstyle{newremark}{}{}{\slshape}{}{\scshape}{.}{0.4em}{}
 	\theoremstyle{newremark}
 	\newtheorem*{remark}{\localizationremark}
-	\newtheorem*{notation}{Notation}
+	\newtheorem*{notation}{\localizationnotation}
 
 	% custom style 'summtheorem' for summaries of statements (only unnumbered variant)
 	\newtheoremstyle{summtheorem}{}{}{\itshape}{}{\bfseries}{.}{\newline}{}
@@ -519,8 +565,7 @@
 
 
 \if@compsci
-	%% -> Options: useful compsci macros
-	% see examples folder for usage
+	%% -> Options (several packages): useful cs macros (see examples folder for usage)
 
 	% asymptotic notation shortcuts
 	\newcommand{\Oh}[1]{\ensuremath{\mathcal{O}\left(#1\right)}}
@@ -529,60 +574,96 @@
 	\newcommand{\Om}[1]{\ensuremath{\Omega\left(#1\right)}}
 	\newcommand{\om}[1]{\ensuremath{\omega\left(#1\right)}}
 
-	\NewDocumentCommand\Set{mg}{%
-    \ensuremath{\bigl\{ #1 \IfNoValueTF{#2}{}{\bigm| #2} \bigr\}}%
-	}
-	
 	% algorithm
 	\newcommand{\algorithminput}{\textbf{Input: }}
 	\newcommand{\algorithmoutput}{\textbf{Output: }}
 	\algnewcommand{\CommentLine}[1]{\State \(\triangleright\) #1} % comment on a single line
-	\algdef{SE}{RepeatTimes}{EndRepeatTimes}[1]{\textbf{repeat } \(\mbox{#1}\) \textbf{times}}{\textbf{end}} % own loop
-
-	
-	% TODO put somewhere more general. Reference:https://tex.stackexchange.com/a/19678/115502
-	% for lineabreaks within tables
-	\newcommand{\specialcell}[2][c]{%
- 	 \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}	   	  
+	\algdef{SE}{RepeatTimes}{EndRepeatTimes}[1]{\textbf{repeat } \(\mbox{#1}\) \textbf{times}}{\textbf{end}} % loops
 \fi
 
 
 \if@probability
-	%% -> Options: useful probability macros
+	%% -> Options: useful statistics macros (see examples folder for usage)
 
-	\let\Pr\oldPr
-	\newcommand{\Pr}[1]{\operatorname{\mathbb{P}}\left[ #1 \right]}
-	\newcommand{\iid}{i.i.d\@ifnextchar.{}{.\@\xspace}} 
-	\newcommand{\ind}[1]{\mathbbm{1}_{#1}} % indicator
+	\@ifpackageloaded{amsmath}{}{\RequirePackage{amsmath}}
+	\@ifpackageloaded{amssymb}{}{\RequirePackage{amssymb}}
+	\@ifpackageloaded{xparse}{}{\RequirePackage{xparse}}
+	% high-level interface for advanced document-level commands (\NewDocumentCommand, \IfNoValueTF, etc.)
+	% -> Provided by / TeXLive package to install: 'l3packages'
+	\@ifpackageloaded{xspace}{}{\RequirePackage{xspace}}
+	% decides whether to insert a space to replace one "eaten" by the TeX engine (needed for intelligent periods after \iid command)
+	% -> Provided by / TeXLive package to install: 'tools'
 
-	% technical
+	% use a blackboard-bold 'P' for probability instead of the default 'Pr'
+	% can also be used with an argument to put an event in square brackets
+	\let\oldPr\Pr
+	\RenewDocumentCommand{\Pr}{g}{%
+		\ensuremath{\operatorname{\mathbb{P}}%
+		\IfNoValueTF{#1}
+			{}
+			{\left[ #1 \right]}
+		}%
+	}
 
-	% Expectation
 	\if@compsci
-		\let\E\Ecomplexity % complexity class E is now \Ecomplexity
+	% expectation
+	% avoiding a clash with the complexity package that is imported with compsci
+		\let\E\Ecomplexity
 	\fi
-	\NewDocumentCommand\E{mg}{
-	\ensuremath{\mathop{\mathbb{E}}\IfNoValueTF{#2}{}{_{#1}} \left[ \IfNoValueTF{#2}{#1}{#2} \right] }
-	}
-	
-	% factorial moment
-	\newcommand{\Efact}[2]{{\mathbb{E}}_{#1}\left[ #2 \right]}
-	
-	% Variance
-	\NewDocumentCommand\Var{mg}{
-	\ensuremath{\operatorname{Var}\IfNoValueTF{#2}{}{_{#1}} \left[ \IfNoValueTF{#2}{#1}{#2} \right] }
+	\NewDocumentCommand{\E}{m g}{%
+		\ensuremath{\operatorname{\mathbb{E}}%
+		\IfNoValueTF{#2}
+			{}
+			{_{#1}}
+		\left[%
+		\IfNoValueTF{#2}
+			{#1}
+			{#2}
+		\right]%
+		}%
 	}
 
-	% Covariance
-	\NewDocumentCommand\Cov{mg}{
-	\ensuremath{\operatorname{Cov}\IfNoValueTF{#2}{}{_{#1}} \left( \IfNoValueTF{#2}{#1}{#2} \right) }
+	% factorial moment
+	\NewDocumentCommand{\Efact}{m m}{%
+		\ensuremath{\operatorname{\mathbb{E}}_{#1}\left[ #2 \right]}%
 	}
-	
+
+	% variance
+	\NewDocumentCommand{\Var}{m g}{%
+		\ensuremath{\operatorname{Var}%
+		\IfNoValueTF{#2}
+			{}
+			{_{#1}}
+		\left[%
+		\IfNoValueTF{#2}
+			{#1}
+			{#2}
+		\right]%
+		}%
+	}
+
+	% covariance
+	\NewDocumentCommand{\Cov}{m g}{%
+		\ensuremath{\operatorname{Cov}%
+		\IfNoValueTF{#2}
+			{}
+			{_{#1}}
+		\left(%
+		\IfNoValueTF{#2}
+			{#1}
+			{#2}
+		\right)%
+		}%
+	}
+
+	% shorthand for "independent and identically distributed"
+	% last period is omitted depending on whether a period already comes after it
+	\newcommand{\iid}{i.i.d\@ifnextchar.{}{.\@\xspace}}
+
 	% distributions
 	\newcommand{\Bernoulli}[1]{\operatorname{Bernoulli}\left( #1 \right)}
 	\newcommand{\Bin}[2]{\operatorname{Bin}\left( #1, #2 \right)}
 	\newcommand{\Po}[1]{\operatorname{Po}\left( #1 \right)}
-	
 \fi
 
 \endinput
