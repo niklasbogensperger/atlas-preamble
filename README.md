@@ -31,8 +31,8 @@ Somewhat more detailed descriptions, explanations, and potential caveats can be 
 | **captionsfootnotes** |  |  | ⬤ | ⬤ |  |  | ⬤ | ⬤ |
 | **cs** |  |  |  |  | ⬤ |  | ⬤ | ⬤ |
 | **headings** |  |  |  | ⬤ |  |  | ⬤ | ⬤ |
-| **hyperref** |  |  | ⬤ | ⬤ |  |  | ⬤ | ⬤ |
 | **physics** |  |  | ⬤ | ⬤ | ⬤ |  | ⬤ | ⬤ |
+| **references** |  |  | ⬤ | ⬤ |  |  | ⬤ | ⬤ |
 | **statistics** |  |  |  |  |  | ⬤ | ⬤ | ⬤ |
 | **theorems** |  |  |  | ⬤ |  |  | ⬤ | ⬤ |
 ||||||||||

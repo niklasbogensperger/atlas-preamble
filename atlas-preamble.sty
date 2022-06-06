@@ -23,10 +23,10 @@
 \newif\if@encoding
 \newif\if@graphics
 \newif\if@headings
-\newif\if@hyperref
 \newif\if@lists
 \newif\if@math
 \newif\if@physics
+\newif\if@references
 \newif\if@spacings
 \newif\if@statistics
 \newif\if@tables
@@ -54,10 +54,10 @@
 \DeclareOption{encoding}{\@encodingtrue}
 \DeclareOption{graphics}{\@graphicstrue}
 \DeclareOption{headings}{\@headingstrue}
-\DeclareOption{hyperref}{\@hyperreftrue}
 \DeclareOption{lists}{\@liststrue}
 \DeclareOption{math}{\@mathtrue}
 \DeclareOption{physics}{\@physicstrue}
+\DeclareOption{references}{\@referencestrue}
 \DeclareOption{spacings}{\@spacingstrue}
 \DeclareOption{statistics}{\@statisticstrue}
 \DeclareOption{tables}{\@tablestrue}
@@ -85,8 +85,8 @@
 	\baseoptions
 	\extraoptions
 	\@captionsfootnotestrue
-	\@hyperreftrue
 	\@physicstrue
+	\@referencestrue
 }
 
 % script options
@@ -95,8 +95,8 @@
 	\extraoptions
 	\@captionsfootnotestrue
 	\@headingstrue
-	\@hyperreftrue
 	\@physicstrue
+	\@referencestrue
 	\@theoremstrue
 }
 
@@ -122,8 +122,8 @@
 	\@captionsfootnotestrue
 	\@cstrue
 	\@headingstrue
-	\@hyperreftrue
 	\@physicstrue
+	\@referencestrue
 	\@statisticstrue
 	\@theoremstrue
 }
@@ -133,13 +133,13 @@
 	\baseoptions
 	\extraoptions
 	\@captionsfootnotestrue
+	\@codetrue
 	\@cstrue
 	\@headingstrue
-	\@hyperreftrue
 	\@physicstrue
+	\@referencestrue
 	\@statisticstrue
 	\@theoremstrue
-	\@codetrue
 }
 
 % fallback for unknown options
@@ -380,7 +380,7 @@
 \fi
 
 
-\if@hyperref
+\if@references
 	\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}
 	% see comment for package 'hyperref' below
 
