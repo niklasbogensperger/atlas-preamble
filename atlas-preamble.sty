@@ -19,16 +19,16 @@
 \newif\if@captionsfootnotes
 \newif\if@code
 \newif\if@columns
-\newif\if@compsci
+\newif\if@cs
 \newif\if@encoding
 \newif\if@graphics
 \newif\if@headings
 \newif\if@hyperref
 \newif\if@lists
 \newif\if@math
-\newif\if@probability
 \newif\if@physics
 \newif\if@spacings
+\newif\if@statistics
 \newif\if@tables
 \newif\if@theorems
 \newif\if@toc
@@ -50,16 +50,16 @@
 \DeclareOption{captionsfootnotes}{\@captionsfootnotestrue}
 \DeclareOption{code}{\@codetrue}
 \DeclareOption{columns}{\@columnstrue}
-\DeclareOption{compsci}{\@compscitrue}
+\DeclareOption{cs}{\@cstrue}
 \DeclareOption{encoding}{\@encodingtrue}
 \DeclareOption{graphics}{\@graphicstrue}
 \DeclareOption{headings}{\@headingstrue}
 \DeclareOption{hyperref}{\@hyperreftrue}
 \DeclareOption{lists}{\@liststrue}
 \DeclareOption{math}{\@mathtrue}
-\DeclareOption{probability}{\@probabilitytrue}
 \DeclareOption{physics}{\@physicstrue}
 \DeclareOption{spacings}{\@spacingstrue}
+\DeclareOption{statistics}{\@statisticstrue}
 \DeclareOption{tables}{\@tablestrue}
 \DeclareOption{theorems}{\@theoremstrue}
 \DeclareOption{toc}{\@toctrue}
@@ -104,7 +104,7 @@
 \DeclareOption{compsci}{%
 	\baseoptions
 	\extraoptions
-	\@compscitrue
+	\@cstrue
 	\@physicstrue
 }
 
@@ -112,7 +112,7 @@
 \DeclareOption{probability}{%
 	\baseoptions
 	\extraoptions
-	\@probabilitytrue
+	\@statisticstrue
 }
 
 % complete options
@@ -120,12 +120,11 @@
 	\baseoptions
 	\extraoptions
 	\@captionsfootnotestrue
-	\@compscitrue
-	\@probabilitytrue
-	\@probabilitytrue
+	\@cstrue
 	\@headingstrue
 	\@hyperreftrue
 	\@physicstrue
+	\@statisticstrue
 	\@theoremstrue
 }
 
@@ -134,12 +133,11 @@
 	\baseoptions
 	\extraoptions
 	\@captionsfootnotestrue
-	\@compscitrue
-	\@probabilitytrue
-	\@probabilitytrue
+	\@cstrue
 	\@headingstrue
 	\@hyperreftrue
 	\@physicstrue
+	\@statisticstrue
 	\@theoremstrue
 	\@codetrue
 }
@@ -223,7 +221,7 @@
 \fi
 
 
-\if@compsci
+\if@cs
 	% see https://tex.stackexchange.com/a/230789 for why this combination of packages is chosen
 	\RequirePackage{algorithm}
 	% -> Provided by / TeXLive package to install: 'algorithms'
@@ -239,7 +237,7 @@
 \fi
 
 
-\if@probability
+\if@statistics
 	% nothing here yet...
 	% -> Options: useful macros in auxiliary features section below
 \fi
@@ -414,7 +412,7 @@
 
 	% use "blackboard bold"-style characters for common number sets
 	% avoiding clashes with the complexity package that is imported with the cs option
-	\if@compsci
+	\if@cs
 		\let\R\Rcomplexity
 		\let\K\Kcomplexity
 		\let\C\Ccomplexity
@@ -563,7 +561,7 @@
 \fi
 
 
-\if@compsci
+\if@cs
 	%% -> Options (several packages): useful cs macros (see examples folder for usage)
 
 	% asymptotic notation shortcuts
@@ -581,7 +579,7 @@
 \fi
 
 
-\if@probability
+\if@statistics
 	%% -> Options: useful statistics macros (see examples folder for usage)
 
 	\@ifpackageloaded{amsmath}{}{\RequirePackage{amsmath}}
@@ -605,8 +603,8 @@
 	}
 
 	% expectation
-	% avoiding a clash with the complexity package that is imported with compsci
-	\if@compsci
+	% avoiding a clash with the complexity package that is imported with the cs option
+	\if@cs
 		\let\E\Ecomplexity
 	\fi
 	\NewDocumentCommand{\E}{m g}{%

@@ -22,19 +22,19 @@ Somewhat more detailed descriptions, explanations, and potential caveats can be 
 | **graphics** | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
 | **math** | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
 | **tables** | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
-||||||||
+||||||||||
 | **columns** |  | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
 | **lists** |  | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
 | **spacings** |  | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
 | **typesetting** |  | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
-||||||||
+||||||||||
 | **captionsfootnotes** |  |  | ⬤ | ⬤ |  |  | ⬤ | ⬤ |
-| **compsci** |  |  |  |  | ⬤ |  | ⬤ | ⬤ |
-| **probability** |  |  |  |  |  | ⬤ | ⬤ | ⬤ |
+| **cs** |  |  |  |  | ⬤ |  | ⬤ | ⬤ |
 | **headings** |  |  |  | ⬤ |  |  | ⬤ | ⬤ |
 | **hyperref** |  |  | ⬤ | ⬤ |  |  | ⬤ | ⬤ |
 | **physics** |  |  | ⬤ | ⬤ | ⬤ |  | ⬤ | ⬤ |
+| **statistics** |  |  |  |  |  | ⬤ | ⬤ | ⬤ |
 | **theorems** |  |  |  | ⬤ |  |  | ⬤ | ⬤ |
-||||||||
+||||||||||
 | **code** |  |  |  |  |  |  |  | ⬤ |
-| **toc** |  |  |  |  |  |  |
+| **toc** |  |  |  |  |  |  |  |  |
