@@ -406,8 +406,6 @@
 %% Post-options section -- auxiliary features of some enabled options
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \if@math
-	% resolving clashes with the complexity package that is imported with compsci
-	\if@compsci
 	%% -> Options (several packages): useful math macros (see examples folder for usage)
 
 	\@ifpackageloaded{xparse}{}{\RequirePackage{xparse}}
@@ -416,6 +414,7 @@
 
 	% use "blackboard bold"-style characters for common number sets
 	% avoiding clashes with the complexity package that is imported with the cs option
+	\if@compsci
 		\let\R\Rcomplexity
 		\let\K\Kcomplexity
 		\let\C\Ccomplexity
@@ -605,9 +604,9 @@
 		}%
 	}
 
-	\if@compsci
 	% expectation
 	% avoiding a clash with the complexity package that is imported with compsci
+	\if@compsci
 		\let\E\Ecomplexity
 	\fi
 	\NewDocumentCommand{\E}{m g}{%
