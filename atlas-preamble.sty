@@ -19,16 +19,16 @@
 \newif\if@captionsfootnotes
 \newif\if@code
 \newif\if@columns
-\newif\if@cs
+\newif\if@computerscience
 \newif\if@encoding
 \newif\if@graphics
 \newif\if@headings
 \newif\if@lists
 \newif\if@math
 \newif\if@physics
+\newif\if@probabilitytheory
 \newif\if@references
 \newif\if@spacings
-\newif\if@statistics
 \newif\if@tables
 \newif\if@theorems
 \newif\if@toc
@@ -50,16 +50,16 @@
 \DeclareOption{captionsfootnotes}{\@captionsfootnotestrue}
 \DeclareOption{code}{\@codetrue}
 \DeclareOption{columns}{\@columnstrue}
-\DeclareOption{cs}{\@cstrue}
+\DeclareOption{computerscience}{\@computersciencetrue}
 \DeclareOption{encoding}{\@encodingtrue}
 \DeclareOption{graphics}{\@graphicstrue}
 \DeclareOption{headings}{\@headingstrue}
 \DeclareOption{lists}{\@liststrue}
 \DeclareOption{math}{\@mathtrue}
 \DeclareOption{physics}{\@physicstrue}
+\DeclareOption{probabilitytheory}{\@probabilitytheorytrue}
 \DeclareOption{references}{\@referencestrue}
 \DeclareOption{spacings}{\@spacingstrue}
-\DeclareOption{statistics}{\@statisticstrue}
 \DeclareOption{tables}{\@tablestrue}
 \DeclareOption{theorems}{\@theoremstrue}
 \DeclareOption{toc}{\@toctrue}
@@ -104,7 +104,7 @@
 \DeclareOption{compsci}{%
 	\baseoptions
 	\extraoptions
-	\@cstrue
+	\@computersciencetrue
 	\@physicstrue
 }
 
@@ -112,7 +112,7 @@
 \DeclareOption{probability}{%
 	\baseoptions
 	\extraoptions
-	\@statisticstrue
+	\@probabilitytheorytrue
 }
 
 % complete options
@@ -120,11 +120,11 @@
 	\baseoptions
 	\extraoptions
 	\@captionsfootnotestrue
-	\@cstrue
+	\@computersciencetrue
 	\@headingstrue
 	\@physicstrue
+	\@probabilitytheorytrue
 	\@referencestrue
-	\@statisticstrue
 	\@theoremstrue
 }
 
@@ -134,11 +134,11 @@
 	\extraoptions
 	\@captionsfootnotestrue
 	\@codetrue
-	\@cstrue
+	\@computersciencetrue
 	\@headingstrue
 	\@physicstrue
+	\@probabilitytheorytrue
 	\@referencestrue
-	\@statisticstrue
 	\@theoremstrue
 }
 
@@ -221,7 +221,7 @@
 \fi
 
 
-\if@cs
+\if@computerscience
 	% see https://tex.stackexchange.com/a/230789 for why this combination of packages is chosen
 	\RequirePackage{algorithm}
 	% floating environment for algorithms
@@ -237,7 +237,7 @@
 \fi
 
 
-\if@statistics
+\if@probabilitytheory
 	% nothing here yet...
 	% -> Options: useful macros in auxiliary features section below
 \fi
@@ -411,8 +411,8 @@
 	% -> Provided by / TeXLive package to install: 'l3packages'
 
 	% use "blackboard bold"-style characters for common number sets
-	% avoiding clashes with the complexity package that is imported with the cs option
-	\if@cs
+	% avoiding clashes with the complexity package that is imported with the computerscience option
+	\if@computerscience
 		\let\R\Rcomplexity
 		\let\K\Kcomplexity
 		\let\C\Ccomplexity
@@ -561,8 +561,8 @@
 \fi
 
 
-\if@cs
-	%% -> Options (several packages): useful cs macros (see examples folder for usage)
+\if@computerscience
+	%% -> Options (several packages): useful computer science macros (see examples folder for usage)
 
 	% asymptotic notation shortcuts
 	\newcommand{\Oh}[1]{\ensuremath{\mathcal{O}\left(#1\right)}}
@@ -579,8 +579,8 @@
 \fi
 
 
-\if@statistics
-	%% -> Options: useful statistics macros (see examples folder for usage)
+\if@probabilitytheory
+	%% -> Options: useful probability theory macros (see examples folder for usage)
 
 	\@ifpackageloaded{amsmath}{}{\RequirePackage{amsmath}}
 	\@ifpackageloaded{amssymb}{}{\RequirePackage{amssymb}}
@@ -603,8 +603,8 @@
 	}
 
 	% expectation
-	% avoiding a clash with the complexity package that is imported with the cs option
-	\if@cs
+	% avoiding a clash with the complexity package that is imported with the computerscience option
+	\if@computerscience
 		\let\E\Ecomplexity
 	\fi
 	\NewDocumentCommand{\E}{m g}{%

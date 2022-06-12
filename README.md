@@ -29,11 +29,11 @@ Somewhat more detailed descriptions, explanations, and potential caveats can be 
 | **typesetting** |  | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ | ⬤ |
 ||||||||||
 | **captionsfootnotes** |  |  | ⬤ | ⬤ |  |  | ⬤ | ⬤ |
-| **cs** |  |  |  |  | ⬤ |  | ⬤ | ⬤ |
+| **computerscience** |  |  |  |  | ⬤ |  | ⬤ | ⬤ |
 | **headings** |  |  |  | ⬤ |  |  | ⬤ | ⬤ |
 | **physics** |  |  | ⬤ | ⬤ | ⬤ |  | ⬤ | ⬤ |
+| **probabilitytheory** |  |  |  |  |  | ⬤ | ⬤ | ⬤ |
 | **references** |  |  | ⬤ | ⬤ |  |  | ⬤ | ⬤ |
-| **statistics** |  |  |  |  |  | ⬤ | ⬤ | ⬤ |
 | **theorems** |  |  |  | ⬤ |  |  | ⬤ | ⬤ |
 ||||||||||
 | **code** |  |  |  |  |  |  |  | ⬤ |
