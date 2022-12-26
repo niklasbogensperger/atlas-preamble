@@ -1,11 +1,14 @@
 \documentclass[11pt, a4paper]{article}
+
 \usepackage[english]{babel}
 
 \usepackage[probability]{../atlas-preamble}
 
+
 \title{Probability and \texttt{atlas-preamble}}
-\author{Responsible for \texttt{probability} module: Tassilo Schwarz\footnote{Email: \texttt{lastname@maths.ox.ac.uk}}}
+\author{Responsible for \texttt{probability} preset: Tassilo Schwarz\footnote{Email: \texttt{lastname@maths.ox.ac.uk}}}
 \date{\today}
+
 
 
 \begin{document}
@@ -14,59 +17,66 @@
 
 
 \section{Introduction}
-To use probability notation and packages in your document, use \texttt{atlas-preamble}, use the \texttt{probability} option:
+To use probability theory macros in your document with \texttt{atlas-preamble}, use the \texttt{probability} preset option:
 \begin{verbatim}
 	\usepackage[probability]{atlas-preamble}
 \end{verbatim}
 
 
-\noindent
-You then have the following benefits.
-
-
-
-
 \section{Basic probability notation}
-The most commonly used one is $\Pr{X+Y}$ and \iid. The \texttt{$\textbackslash$iid} command solves for you every problem with spacing after \texttt{$\textbackslash$iid}: You can either end the sentence afterwards or continue writing; the package will work the spacing out for you:
+The most commonly used ones are $\Pr{X+Y}$ and \iid. The default \texttt{$\textbackslash$Pr} command ($\oldPr$) is accessible via the alias \texttt{$\textbackslash$oldPr}. The new \texttt{$\textbackslash$Pr} command can also be used with an argument to put an event in square brackets. The \texttt{$\textbackslash$iid} command solves spacing and punctuation problems after \texttt{$\textbackslash$iid} automatically: You can either end the sentence afterwards or continue writing; the package will work everything out for you:
 \begin{itemize}
 	\item Let $X$ and $Y$ be \iid. This is a new sentence. 
 	\item Let $X$ be \iid and $Y$ be \iid.
 \end{itemize}
 
 \noindent
-But use \texttt{$\textbackslash$iid} only in text mode. 
+Caution: use \texttt{$\textbackslash$iid} only in text mode. 
 
 \noindent Other elementary probability notation includes:
-
 \begin{align*}
-	&\text{Expectation}
-	&&\text{Variance}
-	&&\text{Covariance} 
-	&& r\text{-th Factorial Moment} & \\
-	&\texttt{\textbackslash E\{a\}\{a+b\}}
-	&&\texttt{\textbackslash Var\{a\}\{a+b\}}
-	&&\texttt{\textbackslash Cov\{a\}\{A+u v\^{}T\}} 
-	&& \texttt{\textbackslash Efact\{r\}\{X\}} & \\
-	&\E{a}{a+b} 
+	&  \textbf{Expectation}
+	&& \textbf{Variance}
+	&& \textbf{Covariance} 
+	&& r\textbf{-th Factorial Moment}
+	&  \\
+	&  \texttt{\textbackslash E\{a\}\{a+b\}}
+	&& \texttt{\textbackslash Var\{a\}\{a+b\}}
+	&& \texttt{\textbackslash Cov\{a\}\{A+u v\^{}T\}} 
+	&& \texttt{\textbackslash Efact\{r\}\{X\}}
+	&  \\
+	&  \E{a}{a+b} 
 	&& \Var{a}{a+b}
 	&& \Cov{a}{A+u v^T} 
-	&& \Efact{r}{X} &
+	&& \Efact{r}{X}
+	&
+	\intertext{If only one argument is given, the subscript will be left out:}
+	&  \texttt{\textbackslash E\{a+b\}}
+	&& \texttt{\textbackslash Var\{a+b\}}
+	&& \texttt{\textbackslash Cov\{A+u v\^{}T\}} 
+	&& \texttt{(not available)}
+	&  \\
+	&  \E{a+b} 
+	&& \Var{a+b}
+	&& \Cov{A+u v^T} 
+	&& \texttt{(not available)}
 \end{align*}
-If only one argument is given, the subscript will be left out.
 
-
+\noindent
+Parenthesis and brackets scaling is automatic according to the content.
 
 
 \section{Probability Distributions}
 
-The following probability distributions are implemented.
-
+The following macros for probability distributions are available:
 \begin{align*}
-	&\texttt{\textbackslash Bernoulli\{p\}}
-	&&\texttt{\textbackslash Bin\{n\}\{p\}}
-	&&\texttt{\textbackslash Po\{c\}} &  \\
-	&\Bernoulli{p} 
+	&  \texttt{\textbackslash Bernoulli\{p\}}
+	&& \texttt{\textbackslash Bin\{n\}\{p\}}
+	&& \texttt{\textbackslash Po\{c\}}
+	&  \\
+	&  \Bernoulli{p} 
 	&& \Bin{n}{p}
-	&& \Po{c} &
+	&& \Po{c}
 \end{align*}
+
 \end{document}
