@@ -384,8 +384,25 @@
 	\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}
 	% see comment for package 'hyperref' below
 	
-	\RequirePackage[hyperfootnotes=false, hypertexnames=false, pdfusetitle]{hyperref}
-	\usepackage{cleveref} % after usepackage hyperref \Cref\ BUT BEFORE THE NEW THEOREM COMMANDS
+	\RequirePackage[hyperfootnotes=false, hypertexnames=false, pdfusetitle,breaklinks]{hyperref}
+	% basic cross-reference commands
+	% -> Caveats: package 'hyperref' should almost always be imported last
+	%			  package 'xcolor' needs to be loaded before to successfully parse the \hypersetup command below
+	% -> Import-time options (hyperref): prohibit link creation in footnotes (would otherwise conflict with package 'footmisc'), enable the more robust but less guessable way to count links, and write correct author and title metadata to pdf file
+	\RequirePackage{filecontents}
+	% to create files "in-file", e.g.:
+	% \begin{filecontents}{\myfile.bib}
+	% 	@article{artKey,
+    % 		author  = ... ,
+    % 		..............
+    %	}
+    % \end{filecontents}
+    % BEFORE \begin{document}
+    \RequirePackage[numbers]{natbib}
+    % this seems to be needed for making the in-file bibliography work; I couldn't do without. MWE see https://tex.stackexchange.com/a/60675/115502
+    % @Niklas: 
+    %  - Maybe we want to make the [numbers] option a parameter?
+	\RequirePackage{cleveref} % after usepackage hyperref \Cref\ BUT BEFORE THE NEW THEOREM COMMANDS
 	
 	% -> Caveats: package 'hyperref' should almost always be imported last; package 'xcolor' needs to be loaded before to successfully parse the \hypersetup command below
 	% -> Import-time options (hyperref): prohibit link creation in footnotes (would otherwise conflict with package 'footmisc'), enable the more robust but less guessable way to count links, and write correct author and title metadata to pdf file
