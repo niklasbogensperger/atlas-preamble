@@ -383,18 +383,30 @@
 \if@references
 	\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}
 	% see comment for package 'hyperref' below
-
-	\RequirePackage[hyperfootnotes=false, hypertexnames=false, pdfusetitle]{hyperref}
+	\PassOptionsToPackage{hyphens}{url}
+	\RequirePackage[hyperfootnotes=false, hypertexnames=false, pdfusetitle,breaklinks]{hyperref}
 	% basic cross-reference commands
 	% -> Caveats: package 'hyperref' should almost always be imported last
 	%			  package 'xcolor' needs to be loaded before to successfully parse the \hypersetup command below
 	% -> Import-time options (hyperref): prohibit link creation in footnotes (would otherwise conflict with package 'footmisc'), enable the more robust but less guessable way to count links, and write correct author and title metadata to pdf file
-	\RequirePackage{cleveref}
-	% enhanced cross-reference features
-	% -> Caveats: package 'cleveref' should almost always be imported last and must be imported after package 'hyperref'
-	%			  use with package 'amsthm' to allow the theorem type to be determined automatically; all \newtheorem definitions must be placed after package 'cleveref' is loaded
-	%			  when using package 'babel' for support for other languages, pass the language optional argument not to the babel package but to the documentclass, so cleveref recognizes it as well
-
+	\RequirePackage{filecontents}
+	% to create files "in-file", e.g.:
+	% \begin{filecontents}{\myfile.bib}
+	% 	@article{artKey,
+    % 		author  = ... ,
+    % 		..............
+    %	}
+    % \end{filecontents}
+    % BEFORE \begin{document}
+    \RequirePackage[numbers]{natbib}
+    % this seems to be needed for making the in-file bibliography work; I couldn't do without. MWE see https://tex.stackexchange.com/a/60675/115502
+    % @Niklas: 
+    %  - Maybe we want to make the [numbers] option a parameter?
+	\RequirePackage{cleveref} % after usepackage hyperref \Cref\ BUT BEFORE THE NEW THEOREM COMMANDS
+	
+	% -> Caveats: package 'hyperref' should almost always be imported last; package 'xcolor' needs to be loaded before to successfully parse the \hypersetup command below
+	% -> Import-time options (hyperref): prohibit link creation in footnotes (would otherwise conflict with package 'footmisc'), enable the more robust but less guessable way to count links, and write correct author and title metadata to pdf file
+	
 	\hypersetup{colorlinks, allcolors={blue!65!black}}
 	% -> Options (hyperref): setup colors of links
 \fi
