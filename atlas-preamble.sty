@@ -383,7 +383,7 @@
 \if@references
 	\@ifpackageloaded{xcolor}{}{\RequirePackage{xcolor}}
 	% see comment for package 'hyperref' below
-	
+	\PassOptionsToPackage{hyphens}{url}
 	\RequirePackage[hyperfootnotes=false, hypertexnames=false, pdfusetitle,breaklinks]{hyperref}
 	% basic cross-reference commands
 	% -> Caveats: package 'hyperref' should almost always be imported last
